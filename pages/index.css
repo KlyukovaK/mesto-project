@@ -1,0 +1,10 @@
+/*общие*/
+@import url(../vendor/normalize.css);
+@import url(../vendor/fonts/inter.css);
+@import url(../blocks/pages/pages.css);
+
+@import url(../blocks/form/__main/form__main.css);
+@import url(../blocks/form/__heading/form__heading.css);
+@import url(../blocks/form/__input-container/form__input-container.css);
+@import url(../blocks/form/__item/form__item.css);
+@import url(../blocks/form/__buttom/form__buttom.css);
