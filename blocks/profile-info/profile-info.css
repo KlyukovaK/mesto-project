@@ -1,0 +1,5 @@
+.profile-info{
+  display: grid;
+  grid-template-columns: 294px 1fr;
+  align-content: center;
+}

@@ -3,6 +3,8 @@
   border: 1px solid #fff;
   width: 24px;
   height: 24px;
+  grid-column: -1;
+  align-self: center;
 }
 
 .button__edit:hover {

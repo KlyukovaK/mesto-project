@@ -1,9 +1,10 @@
 .profile-info__sabtitle {
   font-family: 'Inter', Arial, sans-serif;
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 0.52;
-
-color: #FFFFFF;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 0.52;
+  margin: 16px 0 0;
+  padding: 0;
+  color: #FFF;
 }

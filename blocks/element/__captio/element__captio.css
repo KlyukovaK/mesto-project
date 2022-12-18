@@ -1,0 +1,13 @@
+.element__captio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0;
+  padding: 0 15px 32px 21px;
+  color: #000;
+}

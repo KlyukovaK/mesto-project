@@ -3,6 +3,6 @@
   display: grid;
   grid-template-columns: 120px 336px 150px;
   grid-template-rows: max-content(120px);
-  justify-content:start;
+  justify-content: space-between;
+  align-content: center;
 }
-
