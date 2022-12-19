@@ -1,0 +1,21 @@
+.profile-info__buttom {
+  justify-self: end;
+  background-color: black;
+  border: 1px solid #fff;
+  width: 24px;
+  height: 24px;
+  align-self: center;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-info__buttom:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width:320px) {
+  .profile-info__buttom {
+    width: 18px;
+    height: 18px;
+  }
+}

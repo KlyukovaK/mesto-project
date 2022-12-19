@@ -1,4 +1,4 @@
-.buttom__add {
+.profile__buttom {
   background-color: black;
   border: 2px solid #fff;
   border-radius: 2px;
@@ -8,12 +8,12 @@
   align-self: center;
 }
 
-.buttom__add:hover {
+.profile__buttom:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width:700px) {
-  .buttom__add {
+  .profile__buttom {
     justify-self: center;
     width: 100%;
   }
