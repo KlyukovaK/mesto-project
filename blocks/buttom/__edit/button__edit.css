@@ -1,4 +1,5 @@
 .button__edit {
+  justify-self: end;
   background-color: black;
   border: 1px solid #fff;
   width: 24px;

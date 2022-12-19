@@ -1,8 +1,20 @@
 .profile {
   max-width: 880px;
+  width: 100%;
   display: grid;
-  grid-template-columns: 120px 336px 150px;
-  grid-template-rows: max-content(120px);
-  justify-content: space-between;
+  grid-template-columns: 120px repeat(auto-fit, minmax(120px, 1fr));
+  gap: 30px;
   align-content: center;
+}
+
+@media screen and (max-width:700px) {
+  .profile {
+    width: 88vw;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 26px;
+    justify-content: center;
+    justify-items: center;
+  }
 }

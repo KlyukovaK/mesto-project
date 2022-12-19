@@ -1,5 +1,14 @@
 .profile-info{
   display: grid;
+  max-width: 336px;
   grid-template-columns: 294px 1fr;
   align-content: center;
 }
+
+@media screen and (max-width:700px) {
+  .profile-info  {
+    width: 88%;
+    margin-bottom: 10px;
+  }
+}
+

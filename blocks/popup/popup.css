@@ -1,6 +1,10 @@
 .popup {
+  display: none;
+  width: 100vw;
   background: rgba(0, 0, 0 , 0.5);
   position: absolute;
-  top: 195px;
-  left: 50vw
+  top: 0;
+  left:0 ;
+  bottom: 0;
+  right: 0;
 }

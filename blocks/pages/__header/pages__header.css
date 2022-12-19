@@ -1,3 +1,9 @@
 .pages__header {
   margin: 45px auto 40px;
 }
+
+@media screen and (max-width:320px) {
+  .pages__header {
+    margin: 28px 0 42px;
+  }
+}

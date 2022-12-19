@@ -1,0 +1,14 @@
+.popup__close {
+  max-width: 33px;
+  max-height: 33px;
+  object-fit: cover;
+  fill: #fff;
+  padding: 0;
+  position: absolute;
+  top: -42px;
+  right: -42px;
+}
+
+.popup__close:hover {
+  opacity: 0.6;
+}
