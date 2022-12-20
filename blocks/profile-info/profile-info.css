@@ -11,6 +11,14 @@
     width: 88%;
     max-width: 680px;
     grid-template-columns: 1fr minmax(18px, 24px);
+    column-gap: 10px;
     margin-bottom: 10px;
+  }
+}
+@media screen and (max-width:320px) {
+  .profile-info {
+    justify-content: center;
+    max-width: 282px;
+    grid-template-columns: 189px minmax(18px, 24px);
   }
 }
