@@ -9,4 +9,4 @@
 * Grid
 * Методология БЭМ
 
-## Ссылка на проект:
+## Ссылка на проект:  https://klyukovak.github.io/mesto-project/index.html
