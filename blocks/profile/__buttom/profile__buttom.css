@@ -6,6 +6,9 @@
   height: 50px;
   justify-self: end;
   align-self: center;
+  background: url(../../../images/add.svg) no-repeat center;
+  transition: .2s;
+  cursor: pointer;
 }
 
 .profile__buttom:hover {
@@ -16,5 +19,11 @@
   .profile__buttom {
     justify-self: center;
     width: 100%;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .profile__buttom {
+    background: url(../../../images/add320.svg) no-repeat center;
   }
 }

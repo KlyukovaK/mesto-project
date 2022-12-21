@@ -23,96 +23,87 @@
       <img class="profile__avatar" src="./images/main_foto.jpg" alt="Лицо мужчины">
       <div class="profile-info">
         <h1 class="profile-info__title">Жак-Ив Кусто</h1>
-        <button class="profile-info__buttom">
-          <svg class="profile-info__edit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" preserveAspectRatio="xMidYMid slice">
-            <path d="M10 1.328 2.604 8.767 1.283 7.419 8.66 0 10 1.328ZM0 10l1.962-.588L.585 8.083 0 10Z" />
-          </svg>
-        </button>
-        <p class="profile-info__sabtitle">Исследователь океана</p>
+        <button class="profile-info__buttom" aria-label="редактирование профеля"></button>
+        <p class="profile-info__subtitle">Исследователь океана</p>
       </div>
-      <button class="profile__buttom">
-        <svg class="profile__add" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22 9.778h-9.778V0H9.778v9.778H0v2.444h9.778V22h2.444v-9.778H22V9.778Z" />
-        </svg>
-      </button>
+      <button class="profile__buttom" aria-label="добавление контента"></button>
     </section>
 
-    <ul class="elements content__elements">
-      <li class="element">
-        <figure class="element__group">
+    <section class="elements content__elements">
+      <div class="element">
+        <div class="element__group">
           <img class="element__image" src="./images/element_karachaevsk.jpg" alt="Заброшенная церковь">
-          <figcaption class="element__captio">
-            <p class="element__text">Карачаевск</p>
-            <div class="element__like"></div>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="element">
-        <figure class="element__group">
+          <div class="element__caption">
+            <h2 class="element__text">Карачаевск</h2>
+            <button class="element__like" aria-label="лайк"></button>
+          </div>
+        </div>
+      </div>
+      <div class="element">
+        <div class="element__group">
           <img class="element__image" src="./images/element_elbrus.jpg" alt="Поля на фоне заката и горы Эльбрус">
-          <figcaption class="element__captio">
-            <p class="element__text">Гора Эльбрyc</p>
-            <div class="element__like"></div>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="element">
-        <figure class="element__group">
+          <div class="element__caption">
+            <h2 class="element__text">Гора Эльбрyc</h2>
+            <button class="element__like" aria-label="лайк"></button>
+          </div>
+        </div>
+      </div>
+      <div class="element">
+        <div class="element__group">
           <img class="element__image" src="./images/element_dombai.jpg" alt="Лес и снежный пик Домбая">
-          <figcaption class="element__captio">
-            <p class="element__text">Домбай</p>
-            <div class="element__like"></div>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="element">
-        <figure class="element__group">
+          <div class="element__caption">
+            <h1 class="element__text">Домбай</h1>
+            <button class="element__like" aria-label="лайк"></button>
+          </div>
+        </div>
+      </div>
+      <div class="element">
+        <div class="element__group">
           <img class="element__image" src="./images/element_elbrus.jpg" alt="Поля на фоне заката и горы Эльбрус">
-          <figcaption class="element__captio">
-            <p class="element__text">Гора Эльбрус</p>
-            <div class="element__like"></div>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="element">
-        <figure class="element__group">
+          <div class="element__caption">
+            <h2 class="element__text">Гора Эльбрус</h2>
+            <button class="element__like" aria-label="лайк"></button>
+          </div>
+        </div>
+      </div>
+      <div class="element">
+        <div class="element__group">
           <img class="element__image" src="./images/element_dombai.jpg" alt="Лес и снежный пик Домбая">
-          <figcaption class="element__captio">
-            <p class="element__text">Домбай</p>
-            <div class="element__like"></div>
-          </figcaption>
-        </figure>
-      </li>
-      <li class="element">
-        <figure class="element__group">
+          <div class="element__caption">
+            <h2 class="element__text">Домбай</h2>
+            <button class="element__like" aria-label="лайк"></button>
+          </div>
+        </div>
+      </div>
+      <div class="element">
+        <div class="element__group">
           <img class="element__image" src="./images/element_karachaevsk.jpg" alt="Заброшенная церковь">
-          <figcaption class="element__captio">
-            <p class="element__text">Карачаево-Черкессия</p>
-            <div class="element__like"></div>
-          </figcaption>
-        </figure>
-      </li>
-    </ul>
-    <section class="popup">
-      <div class="popup__conteiner">
-        <svg class="popup__close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" preserveAspectRatio="xMidYMid slice">
-          <path
-            d="m32.79 29.59-12.8-12.8 12.8-12.8-3.2-3.2-12.8 12.8L3.99.79l-3.2 3.2 12.8 12.8-12.8 12.8 3.2 3.2 12.8-12.8 12.8 12.8 3.2-3.2Z" />
-        </svg>
-        <h2 class="popup__heading">Редактировать профиль</h2>
-        <form class="popup__input-container">
-          <input class="popup__item" type="text" placeholder="Жак-Ив Кусто" required>
-          <input class="popup__item" type="text" id="profession" placeholder="Исследователь океана" required>
-          <button class="popup__buttom" type="submit">Сохранить</button>
-        </form>
+          <div class="element__caption">
+            <h2 class="element__text">Карачаево-Черкессия</h2>
+            <button class="element__like" aria-label="лайк"></button>
+          </div>
+        </div>
       </div>
     </section>
 
   </main>
 
   <footer class="footer page__footer">
-    <p class="footer__title">&#169;2020 Mesto Russia</p>
+    <p class="footer__title">&copy; 2020 Mesto Russia</p>
   </footer>
+
+  <section class="popup">
+    <div class="popup__container">
+      <button class="popup__close"></button>
+      <h2 class="popup__heading">Редактировать профиль</h2>
+      <form class="popup__input-container">
+        <input class="popup__item" type="text" id="name" placeholder="Жак-Ив Кусто" name="name" required>
+        <input class="popup__item" type="text" id="profession" placeholder="Исследователь океана" name="profession"
+          required>
+        <button class="popup__buttom" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </section>
 
 </body>
 

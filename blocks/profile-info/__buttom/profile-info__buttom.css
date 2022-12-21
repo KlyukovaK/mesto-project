@@ -4,9 +4,13 @@
   border: 1px solid #fff;
   width: 24px;
   height: 24px;
-  align-self: center;
+  align-self: end;
   padding: 0;
   margin: 0;
+  background: url(../../../images/edit.svg) no-repeat center;
+  background-size: 50%;
+  transition: .2s;
+  cursor: pointer;
 }
 
 .profile-info__buttom:hover {

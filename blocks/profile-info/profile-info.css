@@ -2,7 +2,9 @@
   display: grid;
   max-width: 336px;
   grid-template-columns: 294px 1fr;
+  grid-template-rows: 39px 18px;
   column-gap: 18px;
+  row-gap: 16px;
   align-content: center;
 }
 
@@ -15,10 +17,12 @@
     margin-bottom: 10px;
   }
 }
+
 @media screen and (max-width:320px) {
   .profile-info {
     justify-content: center;
-    max-width: 282px;
-    grid-template-columns: 189px minmax(18px, 24px);
+    margin-left: 30px;
+    grid-template-columns: 189px minmax(16px, 18px);
+    grid-template-rows: 26px 14px;
   }
 }

@@ -1,7 +1,11 @@
 .element__like {
   width: 22px;
   height: 19px;
-  background: url(../../../images/like.svg);
+  background: url(../../../images/like.svg) no-repeat center;
+  border: none;
+  transition: .2s;
+  margin-right: 5px;
+  cursor: pointer;
 }
 
 .element__like:hover {

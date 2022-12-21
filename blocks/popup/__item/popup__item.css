@@ -6,12 +6,17 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   background-color: transparent;
   margin-bottom: 30px;
+  padding: 0;
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
+  vertical-align: top;
+}
 
+.popup__item:focus {
+  color: red;
 }
 
 .popup__item::placeholder {
@@ -20,23 +25,32 @@
 
 .popup__item::-moz-placeholder {
   color: #000;
+  padding-bottom: 13px;
 }
 
 .popup__item::-webkit-input-placeholder {
   color: #000;
+  padding-bottom: 13px;
 }
 
 .popup__item::-o-placeholder {
   color: #000;
+  padding-bottom: 13px;
 }
 
 .popup__item::-ms-input--placeholder {
   color: #000;
+  padding-bottom: 13px;
 }
 
 @media screen and (max-width:540px) {
   .popup__item {
     font-size: 4.375vw;
-    line-height: 17px;
+  }
+}
+
+@media screen and (max-width:540px) {
+  .popup__item {
+    font-size: 14px;
   }
 }
