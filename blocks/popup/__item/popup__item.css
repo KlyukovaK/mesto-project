@@ -46,11 +46,6 @@
 @media screen and (max-width:540px) {
   .popup__item {
     font-size: 4.375vw;
-  }
-}
-
-@media screen and (max-width:540px) {
-  .popup__item {
     font-size: 14px;
   }
 }

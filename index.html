@@ -23,67 +23,67 @@
       <img class="profile__avatar" src="./images/main_foto.jpg" alt="Лицо мужчины">
       <div class="profile-info">
         <h1 class="profile-info__title">Жак-Ив Кусто</h1>
-        <button class="profile-info__buttom" aria-label="редактирование профеля"></button>
+        <button class="profile-info__button" type="button" aria-label="редактирование профеля"></button>
         <p class="profile-info__subtitle">Исследователь океана</p>
       </div>
-      <button class="profile__buttom" aria-label="добавление контента"></button>
+      <button class="profile__button" type="button" aria-label="добавление контента"></button>
     </section>
 
     <section class="elements content__elements">
-      <div class="element">
+      <article class="element">
         <div class="element__group">
           <img class="element__image" src="./images/element_karachaevsk.jpg" alt="Заброшенная церковь">
           <div class="element__caption">
             <h2 class="element__text">Карачаевск</h2>
-            <button class="element__like" aria-label="лайк"></button>
+            <button class="element__like" type="button" aria-label="лайк"></button>
           </div>
         </div>
-      </div>
-      <div class="element">
+      </article>
+      <article class="element">
         <div class="element__group">
           <img class="element__image" src="./images/element_elbrus.jpg" alt="Поля на фоне заката и горы Эльбрус">
           <div class="element__caption">
             <h2 class="element__text">Гора Эльбрyc</h2>
-            <button class="element__like" aria-label="лайк"></button>
+            <button class="element__like" type="button" aria-label="лайк"></button>
           </div>
         </div>
-      </div>
-      <div class="element">
-        <div class="element__group">
-          <img class="element__image" src="./images/element_dombai.jpg" alt="Лес и снежный пик Домбая">
-          <div class="element__caption">
-            <h1 class="element__text">Домбай</h1>
-            <button class="element__like" aria-label="лайк"></button>
-          </div>
-        </div>
-      </div>
-      <div class="element">
-        <div class="element__group">
-          <img class="element__image" src="./images/element_elbrus.jpg" alt="Поля на фоне заката и горы Эльбрус">
-          <div class="element__caption">
-            <h2 class="element__text">Гора Эльбрус</h2>
-            <button class="element__like" aria-label="лайк"></button>
-          </div>
-        </div>
-      </div>
-      <div class="element">
+      </article>
+      <article class="element">
         <div class="element__group">
           <img class="element__image" src="./images/element_dombai.jpg" alt="Лес и снежный пик Домбая">
           <div class="element__caption">
             <h2 class="element__text">Домбай</h2>
-            <button class="element__like" aria-label="лайк"></button>
+            <button class="element__like" type="button" aria-label="лайк"></button>
           </div>
         </div>
-      </div>
-      <div class="element">
+      </article>
+      <article class="element">
+        <div class="element__group">
+          <img class="element__image" src="./images/element_elbrus.jpg" alt="Поля на фоне заката и горы Эльбрус">
+          <div class="element__caption">
+            <h2 class="element__text">Гора Эльбрус</h2>
+            <button class="element__like" type="button" aria-label="лайк"></button>
+          </div>
+        </div>
+      </article>
+      <article class="element">
+        <div class="element__group">
+          <img class="element__image" src="./images/element_dombai.jpg" alt="Лес и снежный пик Домбая">
+          <div class="element__caption">
+            <h2 class="element__text">Домбай</h2>
+            <button class="element__like" type="button" aria-label="лайк"></button>
+          </div>
+        </div>
+      </article>
+      <article class="element">
         <div class="element__group">
           <img class="element__image" src="./images/element_karachaevsk.jpg" alt="Заброшенная церковь">
           <div class="element__caption">
             <h2 class="element__text">Карачаево-Черкессия</h2>
-            <button class="element__like" aria-label="лайк"></button>
+            <button class="element__like" type="button" aria-label="лайк"></button>
           </div>
         </div>
-      </div>
+      </article>
     </section>
 
   </main>
@@ -92,18 +92,18 @@
     <p class="footer__title">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <section class="popup">
+  <div class="popup">
     <div class="popup__container">
-      <button class="popup__close"></button>
+      <button class="popup__close" type="button"></button>
       <h2 class="popup__heading">Редактировать профиль</h2>
-      <form class="popup__input-container">
+      <form class="popup__input-container" name="reprofile" action="#">
         <input class="popup__item" type="text" id="name" placeholder="Жак-Ив Кусто" name="name" required>
         <input class="popup__item" type="text" id="profession" placeholder="Исследователь океана" name="profession"
           required>
-        <button class="popup__buttom" type="submit">Сохранить</button>
+        <button class="popup__button" type="submit">Сохранить</button>
       </form>
     </div>
-  </section>
+  </div>
 
 </body>
 

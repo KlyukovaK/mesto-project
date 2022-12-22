@@ -2,7 +2,7 @@
   display: grid;
   max-width: 336px;
   grid-template-columns: 294px 1fr;
-  grid-template-rows: 39px 18px;
+  grid-template-rows: 40px 18px;
   column-gap: 18px;
   row-gap: 16px;
   align-content: center;
@@ -18,7 +18,7 @@
   }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:350px) {
   .profile-info {
     justify-content: center;
     margin-left: 30px;

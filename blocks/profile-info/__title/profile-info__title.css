@@ -9,16 +9,18 @@
   margin: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 @media screen and (max-width:700px) {
   .profile-info__title {
-    font-size: 8.4vw;
+    font-size: calc(27px + 3.3vw);
     text-align: center;
   }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:350px) {
   .profile-info__title {
     font-size: 27px;
     line-height: 33px;

@@ -1,4 +1,4 @@
-.profile__buttom {
+.profile__button {
   background-color: black;
   border: 2px solid #fff;
   border-radius: 2px;
@@ -11,19 +11,19 @@
   cursor: pointer;
 }
 
-.profile__buttom:hover {
+.profile__button:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width:700px) {
-  .profile__buttom {
+  .profile__button {
     justify-self: center;
     width: 100%;
   }
 }
 
 @media screen and (max-width:320px) {
-  .profile__buttom {
-    background: url(../../../images/add320.svg) no-repeat center;
+  .profile__button {
+    background-size: 16px;
   }
 }

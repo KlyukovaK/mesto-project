@@ -1,4 +1,4 @@
-.profile-info__buttom {
+.profile-info__button {
   justify-self: end;
   background-color: black;
   border: 1px solid #fff;
@@ -11,15 +11,17 @@
   background-size: 50%;
   transition: .2s;
   cursor: pointer;
+  margin-bottom: 2px;
 }
 
-.profile-info__buttom:hover {
+.profile-info__button:hover {
   opacity: 0.6;
 }
 
-@media screen and (max-width:320px) {
-  .profile-info__buttom {
+@media screen and (max-width:350px) {
+  .profile-info__button {
     width: 18px;
     height: 18px;
+    margin-bottom: 0;
   }
 }

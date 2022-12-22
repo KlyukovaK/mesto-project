@@ -1,4 +1,4 @@
-.popup__buttom {
+.popup__button {
   width: 100%;
   min-height: 50px;
   border: none;
@@ -18,12 +18,12 @@
   margin-top: 18px;
 }
 
-.popup__buttom:hover {
+.popup__button:hover {
   background: rgba(0, 0, 0, 0.8);
 }
 
 @media screen and (max-width:540px) {
-  .popup__buttom {
+  .popup__button {
     font-size: 4.375vw;
     line-height: 17px;
     margin-top: 15px;
@@ -31,7 +31,7 @@
 }
 
 @media screen and (max-width:320px) {
-  .popup__buttom {
+  .popup__button {
     min-height: 46px;
     font-size: 14px;
     line-height: 17px;
