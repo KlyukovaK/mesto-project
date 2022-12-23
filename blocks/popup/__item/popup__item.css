@@ -43,9 +43,3 @@
   padding-bottom: 13px;
 }
 
-@media screen and (max-width:540px) {
-  .popup__item {
-    font-size: 4.375vw;
-    font-size: 14px;
-  }
-}
