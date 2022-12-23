@@ -12,7 +12,7 @@
   .profile-info {
     width: 88%;
     max-width: 680px;
-    grid-template-columns: 1fr minmax(18px, 24px);
+    grid-template-columns: minmax(189px, 500px) minmax(18px, 24px);
     column-gap: 10px;
     margin-bottom: 10px;
   }
