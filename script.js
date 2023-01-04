@@ -17,8 +17,6 @@ const jobInput =formElement.querySelector('#profession');
     // Выберите элементы, куда должны быть вставлены значения поле
     // Вставьте новые значения с помощью textContent
   }
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
 let editButton = document.querySelector('.profile-info__button');
 let closeButton = document.querySelector('.popup__close');
