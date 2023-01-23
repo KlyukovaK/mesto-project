@@ -51,6 +51,7 @@ function addImage(imagesValue,namePlaceValue) {
   elementContainer.append(element);
 };
 
+
 /*
 addButton.addEventListener('click', function () {
   const artist = document.querySelector('.input__text_type_artist');
