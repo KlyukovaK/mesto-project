@@ -30,60 +30,18 @@
     </section>
 
     <section class="elements content__elements">
-      <article class="element">
-        <div class="element__group">
-          <img class="element__image" src="./images/element_karachaevsk.jpg" alt="Заброшенная церковь">
-          <div class="element__caption">
-            <h2 class="element__text">Карачаевск</h2>
-            <button class="element__like" type="button" aria-label="лайк"></button>
+      <template id="element">
+        <article class="element">
+          <div class="element__group">
+            <button class="element__delete" type="button" aria-label="удаление"></button>
+            <img class="element__image" src="./images/element_karachaevsk.jpg" alt="Заброшенная церковь">
+            <div class="element__caption">
+              <h2 class="element__text">Карачаевск</h2>
+              <button class="element__like" type="button" aria-label="лайк"></button>
+            </div>
           </div>
-        </div>
-      </article>
-      <article class="element">
-        <div class="element__group">
-          <img class="element__image" src="./images/element_elbrus.jpg" alt="Поля на фоне заката и горы Эльбрус">
-          <div class="element__caption">
-            <h2 class="element__text">Гора Эльбрyc</h2>
-            <button class="element__like" type="button" aria-label="лайк"></button>
-          </div>
-        </div>
-      </article>
-      <article class="element">
-        <div class="element__group">
-          <img class="element__image" src="./images/element_dombai.jpg" alt="Лес и снежный пик Домбая">
-          <div class="element__caption">
-            <h2 class="element__text">Домбай</h2>
-            <button class="element__like" type="button" aria-label="лайк"></button>
-          </div>
-        </div>
-      </article>
-      <article class="element">
-        <div class="element__group">
-          <img class="element__image" src="./images/element_elbrus.jpg" alt="Поля на фоне заката и горы Эльбрус">
-          <div class="element__caption">
-            <h2 class="element__text">Гора Эльбрус</h2>
-            <button class="element__like" type="button" aria-label="лайк"></button>
-          </div>
-        </div>
-      </article>
-      <article class="element">
-        <div class="element__group">
-          <img class="element__image" src="./images/element_dombai.jpg" alt="Лес и снежный пик Домбая">
-          <div class="element__caption">
-            <h2 class="element__text">Домбай</h2>
-            <button class="element__like" type="button" aria-label="лайк"></button>
-          </div>
-        </div>
-      </article>
-      <article class="element">
-        <div class="element__group">
-          <img class="element__image" src="./images/element_karachaevsk.jpg" alt="Заброшенная церковь">
-          <div class="element__caption">
-            <h2 class="element__text">Карачаево-Черкессия</h2>
-            <button class="element__like" type="button" aria-label="лайк"></button>
-          </div>
-        </div>
-      </article>
+        </article>
+      </template>
     </section>
 
   </main>
@@ -105,19 +63,18 @@
     </div>
   </div>
 
-  <div class="popup popup__images">
+  <div class="popup">
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
       <h2 class="popup__heading">Новое место</h2>
       <form class="popup__input-container" name="newplace" action="#">
         <input class="popup__item" type="text" id="nameplace" placeholder="Название" name="name" required>
-        <input class="popup__item" type="text" id="images" placeholder="Ссылка на картинку" name="profession"
-          required>
+        <input class="popup__item" type="text" id="images" placeholder="Ссылка на картинку" name="profession" required>
         <button class="popup__button" type="submit">Создать</button>
       </form>
     </div>
   </div>
-  <script src="script.js"></script>
+  <script src="./script/script.js"></script>
 </body>
 
 </html>
