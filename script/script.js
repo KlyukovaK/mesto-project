@@ -14,7 +14,7 @@ closeButton[0].addEventListener('click', function closePopup() {
   formElement[0].classList.remove("popup_open");
 });
 
-/*сохранение в popup*/
+/*сохранение в popup1*/
 function formSubmitHandler(evt) {
   evt.preventDefault();
   let profileName = document.querySelector(".profile-info__title");
@@ -31,27 +31,24 @@ addButton.addEventListener('click', function openPopup() {
 closeButton[1].addEventListener('click', function closePopup() {
   formElement[1].classList.remove("popup_open");
 });
-/*
-function formSubmitHandler(evt) {
-  evt.preventDefault();
-  const namePlaceInput = formElement[1].querySelector("#nameplace");
-  const imagesInput = formElement[1].querySelector("#images");
-  let elementImage = document.querySelector(".element__image");
-  let elementText = document.querySelector(".element__text");
-  elementImage = imagesInput.value;
-  elementText.textContent = namePlaceInput.value;
-}
-formElement[1].addEventListener("submit", formSubmitHandler);*/
 /*добавление карточек*/
-function addImage(imagesValue,namePlaceValue) {
-  const cardTemplate = document.querySelector('#element').content;
-  const element = songTemplate.querySelector('.element').cloneNode('true');
-  element.querySelector('.element__image').scr = imagesValue;
-  element.querySelector('.element__text').textContent = namePlaceValue;
+function addImage(elementImageValue,elementTextValue) {
+  const card = document.querySelector('#element').content;
+  const element = card.querySelector('.element').cloneNode('true');
+  element.querySelector('.element__image').src = elementImageValue;
+  element.querySelector('.element__text').textContent = elementTextValue;
+
   elementContainer.append(element);
 };
+/*сохраниение popup2*/
+function formNewPlaces(evt) {
+  evt.preventDefault();
+  const elementText = formElement[1].querySelector("#nameplace");
+  const elementImage = formElement[1].querySelector("#images");
 
-
+  addImage(elementImage.value,elementText.value);
+}
+formElement[1].addEventListener("submit", formNewPlaces);
 /*
 addButton.addEventListener('click', function () {
   const artist = document.querySelector('.input__text_type_artist');
