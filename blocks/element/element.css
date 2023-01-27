@@ -3,4 +3,7 @@
   background-color: white;
   border-radius: 10px;
   min-height: 361px;
+  position: relative;
+  display: grid;
+  grid-template-rows: 282px 1fr;
 }
