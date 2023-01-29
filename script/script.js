@@ -67,9 +67,9 @@ function formSubmitHandler(evt) {
   profileJob.textContent = jobInput.value;
 }
 formElement[0].addEventListener("submit", formSubmitHandler);
-formElement[0]
-  .querySelector(".popup__button")
-  .addEventListener("click", closePopup(formElement[0]));
+formElement[0].querySelector(".popup__button").addEventListener("click", function () {
+    closePopup (formElement[0])
+  });
 
 /*добавление карточек*/
 initialCards.forEach(function (item) {
@@ -95,9 +95,7 @@ initialCards.forEach(function (item) {
     formElement[2].querySelector(".popup__img-name").textContent = item.name;
     openPopup(formElement[2]);
   }
-  element
-    .querySelector(".element__image")
-    .addEventListener("click", imageClick);
+  element.querySelector(".element__image").addEventListener("click", imageClick);
 });
 
 /*
@@ -122,6 +120,6 @@ formElement[1].addEventListener("submit", createCard);*/
 }
 formElement[1].addEventListener("submit", creatCard);*/
 
-formElement[1]
-  .querySelector(".popup__button")
-  .addEventListener("click", closePopup(formElement[1]));
+formElement[1].querySelector(".popup__button").addEventListener("click", function () {
+    closePopup(formElement[1]);
+  });

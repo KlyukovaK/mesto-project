@@ -38,7 +38,7 @@
 @import url(../blocks/popup/__img/popup__img.css);
 @import url(../blocks/popup/__img-name/popup__img-name.css);
 @import url(../blocks/popup/__group/popup__group.css);
-@import url(../blocks/popup/__container/_nonbackground/popup__container_nonbackground.css);
+@import url(../blocks/popup/__container-img/popup__container-img.css);
 /*footer*/
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/page/__footer/page__footer.css);
