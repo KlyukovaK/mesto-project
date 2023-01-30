@@ -68,85 +68,59 @@ function formSubmitHandler(evt) {
 }
 formElement[0].addEventListener("submit", formSubmitHandler);
 formElement[0].querySelector(".popup__button").addEventListener("click", () => {
-  closePopup(formElement[0])
+  closePopup(formElement[0]);
 });
 
-/*добавление карточек*/
-/*function createCard(evt) {
-  evt.preventDefault();
-  const elementText = formElement[1].querySelector("#nameplace");
-  const elementImage = formElement[1].querySelector("#images");
-  newCard = {
-    name: elementText.value,
-    link: elementImage.value
-  };
-  console.log(newCard);
-};
-formElement[1].addEventListener("submit", createCard);
-*/
-/*добавление карточек*/
 /*добавление карточек*/
 function addImage(elementImageValue, elementTextValue) {
-  const card = document.querySelector('#element').content;
-  const element = card.querySelector('.element').cloneNode('true');
-  element.querySelector('.element__image').src = elementImageValue;
-  element.querySelector('.element__text').textContent = elementTextValue;
-  element.querySelector('.element__like').addEventListener('click', function (evt) {
-    const eventTarget = evt.target;
-    evt.target.classList.toggle('element__like_active');
-  });
-  element.querySelector('.element__delete').addEventListener('click', function (){
-    element.remove();
-  });
-  elementContainer.append(element);
-};
-formElement[1].querySelector('.popup__button').addEventListener('click', function () {
-  const elementText = formElement[1].querySelector("#nameplace");
-  const elementImage = formElement[1].querySelector("#images");
-  addImage(elementImage.value, elementText.value);
-  elementImage.value = '';
-  elementText.value = '';
-});
-
-initialCards.forEach(function (item) {
   const card = document.querySelector("#element").content;
   const element = card.querySelector(".element").cloneNode("true");
-  element.querySelector(".element__image").src = item.link;
-  element.querySelector(".element__text").textContent = item.name;
+  element.querySelector(".element__image").src = elementImageValue;
+  element.querySelector(".element__text").textContent = elementTextValue;
   element
     .querySelector(".element__like")
     .addEventListener("click", function (evt) {
       const eventTarget = evt.target;
       evt.target.classList.toggle("element__like_active");
     });
-  element
-    .querySelector(".element__delete")
-    .addEventListener("click", function () {
-      element.remove();
-    });
-  elementContainer.append(element);
+  element.querySelector(".element__delete").addEventListener("click", () => {
+    element.remove();
   });
-
+  elementContainer.append(element);
   /*openImg*/
   function imageClick() {
-    formElement[2].querySelector(".popup__img").src = item.link;
-    formElement[2].querySelector(".popup__img-name").textContent = item.name;
+    formElement[2].querySelector(".popup__img").src = elementImageValue;
+    formElement[2].querySelector(".popup__img-name").textContent =
+      elementTextValue;
     openPopup(formElement[2]);
-  element.querySelector(".element__image").addEventListener("click", imageClick);
-};
-
-
-
-
-/*function creatCard(evt) {
-  evt.preventDefault();
-  let profileName = document.querySelector(".profile-info__title");
-  let profileJob = document.querySelector(".profile-info__subtitle");
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
+  }
+  element
+    .querySelector(".element__image")
+    .addEventListener("click", imageClick);
+  element
+    .querySelector(".element__image")
+    .addEventListener("click", imageClick);
 }
-formElement[1].addEventListener("submit", creatCard);*/
 
-formElement[1].querySelector(".popup__button").addEventListener("click", function () {
+let newCard = {};
+function createCard(evt) {
+  evt.preventDefault();
+  newCard.name = formElement[1].querySelector("#nameplace").value;
+  newCard.link = formElement[1].querySelector("#images").value;
+}
+formElement[1].addEventListener("submit", createCard);
+
+if (Object.keys(newCard).length === 0) {
+  initialCards.forEach(function (item) {
+    addImage(item.link, item.name);
+  });
+} else {
+  let addCards = initialCards.unshift(newCard);
+  addCards.forEach(function (item) {
+    addImage(item.link, item.name);
+  });
+}
+
+formElement[1].querySelector(".popup__button").addEventListener("click", () => {
   closePopup(formElement[1]);
 });
