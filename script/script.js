@@ -71,22 +71,22 @@ formElement[0].querySelector(".popup__button").addEventListener("click", () => {
   closePopup(formElement[0]);
 });
 
+const card = document.querySelector("#element").content;
 /*добавление карточек*/
 function addImage(elementImageValue, elementTextValue) {
-  const card = document.querySelector("#element").content;
   const element = card.querySelector(".element").cloneNode("true");
   element.querySelector(".element__image").src = elementImageValue;
   element.querySelector(".element__text").textContent = elementTextValue;
   element
     .querySelector(".element__like")
-    .addEventListener("click", function (evt) {
+    .addEventListener("click", evt => {
       const eventTarget = evt.target;
       evt.target.classList.toggle("element__like_active");
     });
   element.querySelector(".element__delete").addEventListener("click", () => {
     element.remove();
   });
-  elementContainer.append(element);
+
   /*openImg*/
   function imageClick() {
     formElement[2].querySelector(".popup__img").src = elementImageValue;
@@ -100,26 +100,20 @@ function addImage(elementImageValue, elementTextValue) {
   element
     .querySelector(".element__image")
     .addEventListener("click", imageClick);
+  return element;
 }
 
-let newCard = {};
 function createCard(evt) {
   evt.preventDefault();
-  newCard.name = formElement[1].querySelector("#nameplace").value;
-  newCard.link = formElement[1].querySelector("#images").value;
+  const elementText = formElement[1].querySelector("#nameplace").value;
+  const elementImage = formElement[1].querySelector("#images").value;
+  elementContainer.prepend(addImage(elementImage, elementText));
 }
 formElement[1].addEventListener("submit", createCard);
 
-if (Object.keys(newCard).length === 0) {
-  initialCards.forEach(function (item) {
-    addImage(item.link, item.name);
-  });
-} else {
-  let addCards = initialCards.unshift(newCard);
-  addCards.forEach(function (item) {
-    addImage(item.link, item.name);
-  });
-}
+initialCards.forEach(item => {
+  elementContainer.append(addImage(item.link, item.name));
+});
 
 formElement[1].querySelector(".popup__button").addEventListener("click", () => {
   closePopup(formElement[1]);
