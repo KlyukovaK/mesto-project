@@ -62,6 +62,15 @@ closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
+// закрыте popup Esc
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Escape') {
+    closePopup(profilePopup);
+    closePopup(cardPopup);
+    closePopup(imagePopup);
+  };
+});
 
 /*сохранение в popup1*/
 function handleProfileFormSubmit(evt) {
@@ -97,10 +106,9 @@ function addImage(elementImageValue, elementTextValue) {
     openPopup(imagePopup);
   }
   elementImage.addEventListener("click", handleImageClick);
-  elementText.addEventListener("click", handleImageClick);
   return element;
 }
-
+//добавление карточек из popup
 function createCard(evt) {
   evt.preventDefault();
   elementContainer.prepend(addImage(cardPopupImage.value, cardPopupText.value));
@@ -108,7 +116,7 @@ function createCard(evt) {
   closePopup(cardPopup);
 }
 cardPopup.addEventListener("submit", createCard);
-
+// добавление карточек из массива
 initialCards.forEach(item => {
   elementContainer.append(addImage(item.link, item.name));
 });
