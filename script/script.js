@@ -120,3 +120,51 @@ cardPopup.addEventListener("submit", createCard);
 initialCards.forEach(item => {
   elementContainer.append(addImage(item.link, item.name));
 });
+
+//валидация форм1
+const formPofilePopup = profilePopup.querySelector('popup__input-container');
+const formInput = formPofilePopup.querySelector('.popup__item');
+const formError = formPofilePopup.querySelector(`.${formInput.id}-error`);
+
+//функция добавления ошибки
+function showInputError(formElement, inputElement, errorMessage) {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add('popup__item_type_error');
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add('popup__item-error_active');
+};
+//функция удаления ошибки
+function hideInputError(formElement, inputElement) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__item_type_error');
+  errorElement.classList.remove('popup__item-error_active');
+  errorElement.textContent='';
+};
+// функция определения есть ошибка или нет
+function checkInputValidity(formElement, inputElement) {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+//функция перебора всех input в форме и их проверки
+function setEventListeners (formElement) {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__item'));
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', function () {
+      checkInputValidity(formElement, inputElement);
+    });
+  });
+};
+//функция перебора всех форм в документе
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll('.popup__input-container'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', function (evt) {
+      evt.preventDefaunt();
+      });
+      setEventListeners(formElement);
+
+  });
+};

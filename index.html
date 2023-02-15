@@ -55,11 +55,13 @@
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
       <h2 class="popup__heading">Редактировать профиль</h2>
-      <form class="popup__input-container" name="reprofile" action="#">
-        <input class="popup__item" type="text" id="name" value="Жак-Ив Кусто" name="name" required>
+      <form class="popup__input-container" name="reprofile" action="#" novalidate>
+        <input class="popup__item" type="text" id="name" value="Жак-Ив Кусто" name="name" required minlength="2" maxlenght="40">
+        <span class="popup__item-error name-input-error" ></span>
         <input class="popup__item" type="text" id="profession" value="Исследователь океана" name="profession"
-          required>
-        <button class="popup__button" type="submit">Сохранить</button>
+          required minlength="2" maxlenght="200">
+          <span class="popup__item-error profession-input-error" ></span>
+          <button class="popup__button" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
@@ -68,7 +70,7 @@
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
       <h2 class="popup__heading">Новое место</h2>
-      <form class="popup__input-container" name="newplace" action="#">
+      <form class="popup__input-container" name="newplace" action="#" novalidate>
         <input class="popup__item" type="text" id="nameplace" placeholder="Название" name="name" required>
         <input class="popup__item" type="text" id="images" placeholder="Ссылка на картинку" name="profession" required>
         <button class="popup__button" type="submit">Создать</button>
