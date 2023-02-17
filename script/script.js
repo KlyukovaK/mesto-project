@@ -63,15 +63,15 @@ closeButtons.forEach((button) => {
   button.addEventListener('click', () => closePopup(popup));
 });
 // закрыте popup Esc
+const popupList = document.querySelectorAll('.popup');
+popupList.forEach((popupElement) => {
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+      closePopup(popupElement);
+    };
+  });
 
-document.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Escape') {
-    closePopup(profilePopup);
-    closePopup(cardPopup);
-    closePopup(imagePopup);
-  };
 });
-
 /*сохранение в popup1*/
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -121,24 +121,24 @@ initialCards.forEach(item => {
   elementContainer.append(addImage(item.link, item.name));
 });
 
-//валидация форм1
-const formPofilePopup = profilePopup.querySelector('popup__input-container');
-const formInput = formPofilePopup.querySelector('.popup__item');
-const formError = formPofilePopup.querySelector(`.${formInput.id}-error`);
+//валидация форм
+const form = document.querySelector('.popup__input-container');
+const formInput = form.querySelector('.popup__item');
+const formError = form.querySelector(`.${formInput.id}-error`);
 
 //функция добавления ошибки
 function showInputError(formElement, inputElement, errorMessage) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('popup__item_type_error');
-    errorElement.textContent = errorMessage;
-    errorElement.classList.add('popup__item-error_active');
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('popup__item_type_error');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('popup__item-error_active');
 };
 //функция удаления ошибки
 function hideInputError(formElement, inputElement) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove('popup__item_type_error');
   errorElement.classList.remove('popup__item-error_active');
-  errorElement.textContent='';
+  errorElement.textContent = '';
 };
 // функция определения есть ошибка или нет
 function checkInputValidity(formElement, inputElement) {
@@ -148,23 +148,43 @@ function checkInputValidity(formElement, inputElement) {
     hideInputError(formElement, inputElement);
   }
 };
+//функция для активации кнопки
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('popup__button_inactive');
+  } else {
+    buttonElement.classList.remove('popup__button_inactive');
+  }
+}
 //функция перебора всех input в форме и их проверки
-function setEventListeners (formElement) {
+function setEventListeners(formElement) {
   const inputList = Array.from(formElement.querySelectorAll('.popup__item'));
+  const buttonElement = formElement.querySelector('.popup__button');
+  toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
     });
   });
 };
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
 //функция перебора всех форм в документе
 function enableValidation() {
   const formList = Array.from(document.querySelectorAll('.popup__input-container'));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
       evt.preventDefaunt();
-      });
-      setEventListeners(formElement);
-
+    });
+    const popupContainerList = Array.from(formElement.querySelectorAll('.popup__container'))
+    popupContainerList.forEach((popupContainer) => { setEventListeners(popupContainer); })
   });
 };
+
+enableValidation();
