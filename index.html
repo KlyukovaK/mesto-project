@@ -1,94 +1,156 @@
 <!DOCTYPE html>
 <html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1"
+    />
+    <meta name="description" content="Mesto Russia" />
+    <meta name="author" content="Клюкова Кристина" />
+    <meta name="keywords" content="Места России" />
+    <title>Mesto Russia</title>
+    <link rel="stylesheet" href="pages/index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-  <meta name="description" content="Mesto Russia">
-  <meta name="author" content="Клюкова Кристина">
-  <meta name="keywords" content="Места России">
-  <title>Mesto Russia</title>
-  <link rel="stylesheet" href="pages/index.css">
-</head>
+  <body class="page">
+    <header class="header page__header">
+      <img class="header__logo" src="./images/mesto.svg" alt="слово место" />
+    </header>
 
-<body class="page">
+    <main class="content">
+      <section class="profile content__profile">
+        <img
+          class="profile__avatar"
+          src="./images/main_foto.jpg"
+          alt="Лицо мужчины"
+        />
+        <div class="profile-info">
+          <h1 class="profile-info__title">Жак-Ив Кусто</h1>
+          <button
+            class="profile-info__button"
+            type="button"
+            aria-label="редактирование профеля"
+          ></button>
+          <p class="profile-info__subtitle">Исследователь океана</p>
+        </div>
+        <button
+          class="profile__button"
+          type="button"
+          aria-label="добавление контента"
+        ></button>
+      </section>
 
-  <header class="header page__header">
-    <img class="header__logo" src="./images/mesto.svg" alt="слово место">
-  </header>
+      <section class="elements content__elements"></section>
+    </main>
 
-  <main class="content">
+    <template id="element">
+      <article class="element">
+        <button
+          class="element__delete"
+          type="button"
+          aria-label="удаление"
+        ></button>
+        <img class="element__image" />
+        <div class="element__caption">
+          <h2 class="element__text"></h2>
+          <button
+            class="element__like"
+            type="button"
+            aria-label="лайк"
+          ></button>
+        </div>
+      </article>
+    </template>
 
-    <section class="profile content__profile">
-      <img class="profile__avatar" src="./images/main_foto.jpg" alt="Лицо мужчины">
-      <div class="profile-info">
-        <h1 class="profile-info__title">Жак-Ив Кусто</h1>
-        <button class="profile-info__button" type="button" aria-label="редактирование профеля"></button>
-        <p class="profile-info__subtitle">Исследователь океана</p>
-      </div>
-      <button class="profile__button" type="button" aria-label="добавление контента"></button>
-    </section>
+    <footer class="footer page__footer">
+      <p class="footer__title">&copy; 2020 Mesto Russia</p>
+    </footer>
 
-
-    <section class="elements content__elements">
-
-    </section>
-
-  </main>
-
-  <template id="element">
-    <article class="element">
-      <button class="element__delete" type="button" aria-label="удаление"></button>
-      <img class="element__image">
-      <div class="element__caption">
-        <h2 class="element__text"></h2>
-        <button class="element__like" type="button" aria-label="лайк"></button>
-      </div>
-    </article>
-  </template>
-
-  <footer class="footer page__footer">
-    <p class="footer__title">&copy; 2020 Mesto Russia</p>
-  </footer>
-
-  <div class="popup profile-popup">
-    <div class="popup__container">
-      <button class="popup__close" type="button"></button>
-      <h2 class="popup__heading">Редактировать профиль</h2>
-      <form class="popup__input-container" name="reprofile" action="#" novalidate>
-        <input class="popup__item" type="text" id="name" value="Жак-Ив Кусто" name="name" required minlength="2" maxlenght="40">
-        <span class="popup__item-error name-error" ></span>
-        <input class="popup__item" type="text" id="profession" value="Исследователь океана" name="profession"
-          required minlength="2" maxlenght="200">
-          <span class="popup__item-error profession-error" ></span>
+    <div class="popup profile-popup">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__heading">Редактировать профиль</h2>
+        <form
+          class="popup__input-container"
+          name="reprofile"
+          action="#"
+          novalidate
+        >
+          <input
+            class="popup__item"
+            type="text"
+            id="name"
+            value="Жак-Ив Кусто"
+            name="name"
+            required
+            minlength="2"
+            maxlength="40"
+            pattern="^[a-zA-Z]+[а-яА-Я]+$"
+            data-error-message="Разрешены только латинские буквы"
+          />
+          <span class="popup__item-error name-error"></span>
+          <input
+            class="popup__item"
+            type="text"
+            id="profession"
+            value="Исследователь океана"
+            name="profession"
+            required
+            minlength="2"
+            maxlenght="200"
+          />
+          <span class="popup__item-error profession-error"></span>
           <button class="popup__button" type="submit">Сохранить</button>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <div class="popup card-popup">
-    <div class="popup__container">
-      <button class="popup__close" type="button"></button>
-      <h2 class="popup__heading">Новое место</h2>
-      <form class="popup__input-container" name="newplace" action="#" novalidate>
-        <input class="popup__item" type="text" id="nameplace" placeholder="Название" name="name" required>
-        <input class="popup__item" type="text" id="images" placeholder="Ссылка на картинку" name="profession" required>
-        <button class="popup__button" type="submit">Создать</button>
-      </form>
+    <div class="popup card-popup">
+      <div class="popup__container">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__heading">Новое место</h2>
+        <form
+          class="popup__input-container"
+          name="newplace"
+          action="#"
+          novalidate
+        >
+          <input
+            class="popup__item"
+            type="text"
+            id="nameplace"
+            placeholder="Название"
+            name="name"
+            required
+            minlength="2"
+            maxlength="30"
+          />
+          <span class="popup__item-error nameplace-error"></span>
+          <input
+            class="popup__item"
+            type="url"
+            id="images"
+            placeholder="Ссылка на картинку"
+            name="profession"
+            required
+          />
+          <span class="popup__item-error images-error"></span>
+          <button class="popup__button" type="submit">Создать</button>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <div class="popup image-popup">
-    <div class="popup__container-img">
-      <button class="popup__close" type="button"></button>
-      <figure class="popup__group">
-        <img class="popup__img">
-        <figcaption class="popup__img-name"></figcaption>
-      </figure>
+    <div class="popup image-popup">
+      <div class="popup__container-img">
+        <button class="popup__close" type="button"></button>
+        <figure class="popup__group">
+          <img class="popup__img" />
+          <figcaption class="popup__img-name"></figcaption>
+        </figure>
+      </div>
     </div>
-  </div>
 
-  <script src="./script/script.js"></script>
-</body>
-
+    <script src="./script/script.js"></script>
+  </body>
 </html>

@@ -1,19 +1,19 @@
-const profilePopup = document.querySelector('.profile-popup');
-const cardPopup = document.querySelector('.card-popup');
-const imagePopup = document.querySelector('.image-popup');
-const nameInput = profilePopup.querySelector('#name');
-const jobInput = profilePopup.querySelector('#profession');
-const cardPopupText = cardPopup.querySelector('#nameplace');
-const cardPopupImage = cardPopup.querySelector('#images');
-const editButton = document.querySelector('.profile-info__button');
-const addButton = document.querySelector('.profile__button');
-const closeButtons = document.querySelectorAll('.popup__close');
-const elementContainer = document.querySelector('.elements');
-const profileName = document.querySelector('.profile-info__title');
-const profileJob = document.querySelector('.profile-info__subtitle');
-const cardTemplate = document.querySelector('#element').content;
-const openImage = imagePopup.querySelector('.popup__img');
-const nameImage = imagePopup.querySelector('.popup__img-name');
+const profilePopup = document.querySelector(".profile-popup");
+const cardPopup = document.querySelector(".card-popup");
+const imagePopup = document.querySelector(".image-popup");
+const nameInput = profilePopup.querySelector("#name");
+const jobInput = profilePopup.querySelector("#profession");
+const cardPopupText = cardPopup.querySelector("#nameplace");
+const cardPopupImage = cardPopup.querySelector("#images");
+const editButton = document.querySelector(".profile-info__button");
+const addButton = document.querySelector(".profile__button");
+const closeButtons = document.querySelectorAll(".popup__close");
+const elementContainer = document.querySelector(".elements");
+const profileName = document.querySelector(".profile-info__title");
+const profileJob = document.querySelector(".profile-info__subtitle");
+const cardTemplate = document.querySelector("#element").content;
+const openImage = imagePopup.querySelector(".popup__img");
+const nameImage = imagePopup.querySelector(".popup__img-name");
 
 const initialCards = [
   {
@@ -59,18 +59,17 @@ addButton.addEventListener("click", () => {
 }); //oprn popup2
 
 closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
+  const popup = button.closest(".popup");
+  button.addEventListener("click", () => closePopup(popup));
 });
 // закрыте popup Esc
-const popupList = document.querySelectorAll('.popup');
+const popupList = document.querySelectorAll(".popup");
 popupList.forEach((popupElement) => {
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
+  document.addEventListener("keydown", function (evt) {
+    if (evt.key === "Escape") {
       closePopup(popupElement);
-    };
+    }
   });
-
 });
 /*сохранение в popup1*/
 function handleProfileFormSubmit(evt) {
@@ -83,17 +82,15 @@ profilePopup.addEventListener("submit", handleProfileFormSubmit);
 
 /*добавление карточек*/
 function addImage(elementImageValue, elementTextValue) {
-  const element = cardTemplate.querySelector('.element').cloneNode("true");
-  const elementImage = element.querySelector('.element__image');
+  const element = cardTemplate.querySelector(".element").cloneNode("true");
+  const elementImage = element.querySelector(".element__image");
   const elementText = element.querySelector(".element__text");
   elementImage.src = elementImageValue;
   elementImage.alt = elementTextValue;
   elementText.textContent = elementTextValue;
-  element
-    .querySelector(".element__like")
-    .addEventListener("click", evt => {
-      evt.target.classList.toggle("element__like_active");
-    });
+  element.querySelector(".element__like").addEventListener("click", (evt) => {
+    evt.target.classList.toggle("element__like_active");
+  });
   element.querySelector(".element__delete").addEventListener("click", () => {
     element.remove();
   });
@@ -117,74 +114,89 @@ function createCard(evt) {
 }
 cardPopup.addEventListener("submit", createCard);
 // добавление карточек из массива
-initialCards.forEach(item => {
+initialCards.forEach((item) => {
   elementContainer.append(addImage(item.link, item.name));
 });
 
 //валидация форм
-const form = document.querySelector('.popup__input-container');
-const formInput = form.querySelector('.popup__item');
+const form = document.querySelector(".popup__input-container");
+const formInput = form.querySelector(".popup__item");
 const formError = form.querySelector(`.${formInput.id}-error`);
 
 //функция добавления ошибки
 function showInputError(formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__item_type_error');
+  inputElement.classList.add("popup__item_type_error");
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__item-error_active');
-};
+  errorElement.classList.add("popup__item-error_active");
+}
 //функция удаления ошибки
 function hideInputError(formElement, inputElement) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__item_type_error');
-  errorElement.classList.remove('popup__item-error_active');
-  errorElement.textContent = '';
-};
+  inputElement.classList.remove("popup__item_type_error");
+  errorElement.classList.remove("popup__item-error_active");
+  errorElement.textContent = "";
+}
 // функция определения есть ошибка или нет
 function checkInputValidity(formElement, inputElement) {
+  if (inputElement.validity.patternMismatch) {
+    inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+  } else {
+    inputElement.setCustomValidity("");
+  }
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
     hideInputError(formElement, inputElement);
   }
-};
-//функция для активации кнопки
-function toggleButtonState(inputList, buttonElement) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__button_inactive');
-  } else {
-    buttonElement.classList.remove('popup__button_inactive');
-  }
 }
-//функция перебора всех input в форме и их проверки
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__item'));
-  const buttonElement = formElement.querySelector('.popup__button');
-  toggleButtonState(inputList, buttonElement);
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-};
-
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
-};
+}
+
+//функция для активации кнопки
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.disabled = true;
+    buttonElement.classList.add("popup__button_inactive");
+  } else {
+    buttonElement.disabled = false;
+    buttonElement.classList.remove("popup__button_inactive");
+  }
+}
+
+//функция перебора всех input в форме и их проверки
+function setEventListeners(formElement) {
+  const inputList = Array.from(formElement.querySelectorAll(".popup__item"));
+  const buttonElement = formElement.querySelector(".popup__button");
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+}
 
 //функция перебора всех форм в документе
 function enableValidation() {
-  const formList = Array.from(document.querySelectorAll('.popup__input-container'));
+  const formList = Array.from(
+    document.querySelectorAll(".popup__input-container")
+  );
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function (evt) {
+    setEventListeners(formElement);
+    formElement.addEventListener("submit", function (evt) {
       evt.preventDefaunt();
     });
-    const popupContainerList = Array.from(formElement.querySelectorAll('.popup__container'))
-    popupContainerList.forEach((popupContainer) => { setEventListeners(popupContainer); })
+    const popupContainerList = Array.from(
+      formElement.querySelectorAll(".popup__container")
+    );
+    popupContainerList.forEach((popupContainer) => {
+      setEventListeners(popupContainer);
+    });
   });
-};
+}
 
 enableValidation();
