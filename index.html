@@ -86,8 +86,8 @@
             required
             minlength="2"
             maxlength="40"
-            pattern="^[a-zA-Z]+[а-яА-Я]+$"
-            data-error-message="Разрешены только латинские буквы"
+            pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+            data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы "
           />
           <span class="popup__item-error name-error"></span>
           <input
@@ -99,6 +99,8 @@
             required
             minlength="2"
             maxlenght="200"
+            pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+            data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы "
           />
           <span class="popup__item-error profession-error"></span>
           <button class="popup__button" type="submit">Сохранить</button>
@@ -125,6 +127,8 @@
             required
             minlength="2"
             maxlength="30"
+            pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+            data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы "
           />
           <span class="popup__item-error nameplace-error"></span>
           <input

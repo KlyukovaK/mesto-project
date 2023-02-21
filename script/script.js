@@ -68,7 +68,12 @@ popupList.forEach((popupElement) => {
   document.addEventListener("keydown", function (evt) {
     if (evt.key === "Escape") {
       closePopup(popupElement);
-    }
+    };
+  });
+  document.addEventListener("click", function (evt) {
+    if (evt.target === popupElement) {
+      closePopup(popupElement);
+    };
   });
 });
 /*сохранение в popup1*/
@@ -186,16 +191,10 @@ function enableValidation() {
     document.querySelectorAll(".popup__input-container")
   );
   formList.forEach((formElement) => {
-    setEventListeners(formElement);
     formElement.addEventListener("submit", function (evt) {
-      evt.preventDefaunt();
+      evt.preventDefault();
     });
-    const popupContainerList = Array.from(
-      formElement.querySelectorAll(".popup__container")
-    );
-    popupContainerList.forEach((popupContainer) => {
-      setEventListeners(popupContainer);
-    });
+    setEventListeners(formElement);
   });
 }
 

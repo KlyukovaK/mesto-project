@@ -1,0 +1,19 @@
+{
+  "name": "mesto-project",
+  "version": "0.0.1",
+  "description": "Этот сайт на котором вы можете зарегистрироваться и выкладывать свои фотографии с интересных мест России. Также на сайте вы сможите отмечать те фотографии которые вам понравились.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KlyukovaK/mesto-project.git"
+  },
+  "author": "Klyukova Kristina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KlyukovaK/mesto-project/issues"
+  },
+  "homepage": "https://github.com/KlyukovaK/mesto-project#readme"
+}
