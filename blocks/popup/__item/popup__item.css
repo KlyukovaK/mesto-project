@@ -18,7 +18,10 @@
 .popup__item:focus {
   color: red;
 }
-
+.popup__item:invalid {
+  margin-bottom: 0px;
+  border-bottom: 1px solid #FF0000;
+}
 
 .popup__item::placeholder {
   color: #000;
