@@ -10,19 +10,22 @@
     <meta name="author" content="Клюкова Кристина" />
     <meta name="keywords" content="Места России" />
     <title>Mesto Russia</title>
-    <link rel="stylesheet" href="pages/index.css" />
   </head>
 
   <body class="page">
     <header class="header page__header">
-      <img class="header__logo" src="./images/mesto.svg" alt="слово место" />
+      <img
+        class="header__logo"
+        src="<%=require('../images/mesto.svg')%>"
+        alt="слово место"
+      />
     </header>
 
     <main class="content">
       <section class="profile content__profile">
         <img
           class="profile__avatar"
-          src="./images/main_foto.jpg"
+          src="<%=require('../images/main_foto.jpg')%>"
           alt="Лицо мужчины"
         />
         <div class="profile-info">
@@ -58,6 +61,7 @@
             class="element__like"
             type="button"
             aria-label="лайк"
+            disabled
           ></button>
         </div>
       </article>
@@ -103,7 +107,7 @@
             data-error-message="Разрешены только латинские буквы, кириллические буквы, знаки дефиса и пробелы "
           />
           <span class="popup__item-error profession-error"></span>
-          <button class="popup__button" type="submit">Сохранить</button>
+          <button class="popup__button" type="submit" disabled>Сохранить</button>
         </form>
       </div>
     </div>
@@ -154,7 +158,5 @@
         </figure>
       </div>
     </div>
-
-    <script src="./script/script.js"></script>
   </body>
 </html>
