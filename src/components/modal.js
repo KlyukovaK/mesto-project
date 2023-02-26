@@ -1,13 +1,43 @@
-/*сохранение в popup1*/
-const profileName = document.querySelector(".profile-info__title");
-const profileJob = document.querySelector(".profile-info__subtitle");
-import {nameInput, jobInput, profilePopup} from "./index.js";
-import {closePopup} from "./utils.js";
-
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  closePopup(profilePopup);
+import { profilePopup, cardPopup } from "./index.js";
+const popupProfileOpenButton = document.querySelector(".profile-info__button");
+const popupCardOpenButton = document.querySelector(".profile__button");
+const popupCloseButtons = document.querySelectorAll(".popup__close");
+const popupList = document.querySelectorAll(".popup");
+/*открыте и закрытие popup*/
+function openPopup(popupElement) {
+  popupElement.classList.add("popup_opened");
 }
-export {handleProfileFormSubmit}
+
+function closePopup(popupElement) {
+  popupElement.classList.remove("popup_opened");
+}
+popupProfileOpenButton.addEventListener("click", () => {
+  openPopup(profilePopup);
+}); //open popup1
+popupCardOpenButton.addEventListener("click", () => {
+  openPopup(cardPopup);
+}); //oprn popup2
+
+popupCloseButtons.forEach((button) => {
+  const popup = button.closest(".popup");
+  button.addEventListener("click", () => closePopup(popup));
+});
+
+// закрыте popup Esc
+function closeByEsc(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
+}
+document.addEventListener("keydown", closeByEsc);
+
+function closeByBackground(evt) {
+  const openedPopup = document.querySelector(".popup_opened");
+  if (evt.target === openedPopup) {
+    closePopup(openedPopup);
+  }
+}
+document.addEventListener("click", closeByBackground);
+
+export { openPopup, closePopup };

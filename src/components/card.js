@@ -1,22 +1,28 @@
-import {openImage, nameImage, imagePopup} from "./index.js";
-import {openPopup} from "./utils.js";
+import { openImage, nameImage, imagePopup } from "./utils.js";
+import { openPopup } from "./modal.js";
 const cardTemplate = document.querySelector("#element").content;
+//добавление лайка
+function addLike(element) {
+  element.querySelector(".element__like").addEventListener("click", (evt) => {
+    evt.target.classList.toggle("element__like_active");
+  });
+}
+//удаление карточки
+function deleteCard(element) {
+  element.querySelector(".element__delete").addEventListener("click", () => {
+    element.remove();
+  });
+}
 /*добавление карточек*/
-export function addImage(elementImageValue, elementTextValue) {
+export function createCard(elementImageValue, elementTextValue) {
   const element = cardTemplate.querySelector(".element").cloneNode("true");
   const elementImage = element.querySelector(".element__image");
   const elementText = element.querySelector(".element__text");
   elementImage.src = elementImageValue;
   elementImage.alt = elementTextValue;
   elementText.textContent = elementTextValue;
-  element.querySelector(".element__like").addEventListener("click", (evt) => {
-    evt.target.classList.toggle("element__like_active");
-  });
-  element.querySelector(".element__delete").addEventListener("click", () => {
-
-    element.remove();
-  });
-
+  addLike(element);
+  deleteCard(element);
   /*openImg*/
   function handleImageClick() {
     openImage.src = elementImageValue;

@@ -16,7 +16,7 @@
     <header class="header page__header">
       <img
         class="header__logo"
-        src="<%=require('../images/mesto.svg')%>"
+        src="<%=require('./images/mesto.svg')%>"
         alt="слово место"
       />
     </header>
@@ -25,7 +25,7 @@
       <section class="profile content__profile">
         <img
           class="profile__avatar"
-          src="<%=require('../images/main_foto.jpg')%>"
+          src="<%=require('./images/main_foto.jpg')%>"
           alt="Лицо мужчины"
         />
         <div class="profile-info">
@@ -87,6 +87,7 @@
             value="Жак-Ив Кусто"
             name="name"
             required
+            placeholder="Имя"
             minlength="2"
             maxlength="40"
             pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
@@ -99,6 +100,7 @@
             id="profession"
             value="Исследователь океана"
             name="profession"
+            placeholder="Профессия"
             required
             minlength="2"
             maxlenght="200"
@@ -143,7 +145,7 @@
             required
           />
           <span class="popup__item-error images-error"></span>
-          <button class="popup__button" type="submit">Создать</button>
+          <button class="popup__button" type="submit" disabled>Создать</button>
         </form>
       </div>
     </div>

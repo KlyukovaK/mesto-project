@@ -1,12 +1,4 @@
-/*открыте и закрытие popup*/
-function openPopup(popupElement) {
-  popupElement.classList.add("popup_open");
-}
-
-function closePopup(popupElement) {
-  popupElement.classList.remove("popup_open");
-}
-
-
-
-export {openPopup, closePopup}
+const imagePopup = document.querySelector(".image-popup");
+const openImage = imagePopup.querySelector(".popup__img");
+const nameImage = imagePopup.querySelector(".popup__img-name");
+export {openImage, nameImage, imagePopup}
