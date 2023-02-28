@@ -1,5 +1,5 @@
 import "../pages/index.css";
-import { closePopup } from "./modal.js";
+import { openPopup, closePopup } from "./modal.js";
 import { enableValidation } from "./validate.js";
 import { createCard } from "./card.js";
 import { initialCards } from "./initialCards.js";
@@ -14,8 +14,23 @@ const elementContainer = document.querySelector(".elements");
 const profileName = document.querySelector(".profile-info__title");
 const profileJob = document.querySelector(".profile-info__subtitle");
 const popupCardAddContent= cardPopup.querySelector(".popup__button");
-/*сохранение в popup1*/
+const popupProfileOpenButton = document.querySelector(".profile-info__button");
+const popupCardOpenButton = document.querySelector(".profile__button");
+const popupCloseButtons = document.querySelectorAll(".popup__close");
 
+popupProfileOpenButton.addEventListener("click", () => {
+  openPopup(profilePopup);
+}); //open popup1
+popupCardOpenButton.addEventListener("click", () => {
+  openPopup(cardPopup);
+}); //oprn popup2
+
+popupCloseButtons.forEach((button) => {
+  const popup = button.closest(".popup");
+  button.addEventListener("click", () => closePopup(popup));
+});
+
+/*сохранение в popup1*/
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -50,10 +65,8 @@ enableValidation({
   errorClass: "popup__item-error_active",
 });
 export {
-  profilePopup,
   nameInput,
   jobInput,
   cardPopupText,
-  cardPopupImage,
-  cardPopup
+  cardPopupImage
 };
