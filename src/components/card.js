@@ -2,16 +2,12 @@ import { openImage, nameImage, imagePopup } from "./utils.js";
 import { openPopup } from "./modal.js";
 const cardTemplate = document.querySelector("#element").content;
 //добавление лайка
-function addLike(element) {
-  element.querySelector(".element__like").addEventListener("click", (evt) => {
-    evt.target.classList.toggle("element__like_active");
-  });
+function addLike(evt) {
+  evt.target.classList.toggle("element__like_active");
 }
 //удаление карточки
 function deleteCard(element) {
-  element.querySelector(".element__delete").addEventListener("click", () => {
-    element.remove();
-  });
+  element.remove();
 }
 /*добавление карточек*/
 export function createCard(elementImageValue, elementTextValue) {
@@ -21,8 +17,12 @@ export function createCard(elementImageValue, elementTextValue) {
   elementImage.src = elementImageValue;
   elementImage.alt = elementTextValue;
   elementText.textContent = elementTextValue;
-  addLike(element);
-  deleteCard(element);
+  element.querySelector(".element__like").addEventListener("click", (evt) => {
+    addLike(evt);
+  });
+  element.querySelector(".element__delete").addEventListener("click", () => {
+    deleteCard(element);
+  });
   /*openImg*/
   function handleImageClick() {
     openImage.src = elementImageValue;

@@ -31,6 +31,7 @@ function submitCardForm(evt) {
   elementContainer.prepend(createCard(cardPopupImage.value, cardPopupText.value));
   evt.target.reset();
   popupCardAddContent.classList.add("popup__button_inactive");
+  popupCardAddContent.setAttribute("disabled", "disabled");
   closePopup(cardPopup);
 }
 cardPopup.addEventListener("submit", submitCardForm);
