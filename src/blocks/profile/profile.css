@@ -3,6 +3,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 120px repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-rows: 120px;
   gap: 30px;
   align-content: center;
 }
