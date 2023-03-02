@@ -42,48 +42,73 @@ getInitialProfile()
 .then((resalt) => {
   profileName.textContent = resalt.name;
   profileJob.textContent = resalt.about;
+  avararProfile.src = resalt.avatar;
   nameInput.value = resalt.name;
   jobInput.value = resalt.about;
+  return resalt
+})
+.then ((resalt)=>{
+  const authorId = resalt._id;
+  getInitialCards()
+  .then((cards) => {
+    cards.forEach(function (card) {
+      authorId
+      elementContainer.append(createCard(card, authorId));
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 })
 .catch((err) => {
   console.log(err);
-})
+});
+
+
 
 /*сохранение в popup1*/
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  changeProfile(nameInput.value, jobInput.value);
-  renderLoading(popupProfileAddContent,true);
-  getInitialProfile()
-    .then((resalt) => {
-      profileName.textContent = resalt.name;
-      profileJob.textContent = resalt.about;
-      avararProfile.src = resalt.avatar;
-    })
+  renderLoading(popupProfileAddContent, true);
+  changeProfile(nameInput.value, jobInput.value)
+  .then((resalt) => {
+    profileName.textContent = resalt.name;
+    profileJob.textContent = resalt.about;
+    nameInput.value = resalt.name;
+    jobInput.value = resalt.about;
+  })
     .catch((err) => {
       console.log(err);
     })
-    .finally(()=> {renderLoading(popupProfileAddContent,false)})
+    .finally(() => {
+      renderLoading(popupProfileAddContent, false);
+    });
   closePopup(profilePopup);
 }
 /*сохранение в popup1*/
 profilePopup.addEventListener("submit", handleProfileFormSubmit);
 //добавление карточек из popup
+
 function submitCardForm(evt) {
   evt.preventDefault();
-  elementContainer.prepend(
-    createCard(cardPopupImage.value, cardPopupText.value)
-  );
+  renderLoading(popupCardAddContent, true);
+  addCard(cardPopupText.value, cardPopupImage.value)
+    .then((card) => {
+      const authorId = card.owner._id;
+      elementContainer.prepend(createCard(card, authorId));
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoading(popupCardAddContent, false);
+    });
   evt.target.reset();
   popupCardAddContent.classList.add("popup__button_inactive");
   popupCardAddContent.setAttribute("disabled", "disabled");
   closePopup(cardPopup);
 }
 cardPopup.addEventListener("submit", submitCardForm);
-// добавление карточек из массива
-// initialCards.forEach((item) => {
-//   elementContainer.append(createCard(item.link, item.name));
-// });
 
 //валидация форм
 enableValidation({
@@ -94,15 +119,5 @@ enableValidation({
   inputErrorClass: "popup__item_type_error",
   errorClass: "popup__item-error_active",
 });
-export { nameInput, jobInput, cardPopupText, cardPopupImage };
 
-//добавление карточек
-getInitialCards()
-  .then((cards) => {
-    cards.forEach((card) => {
-      elementContainer.append(createCard(card.link, card.name));
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+

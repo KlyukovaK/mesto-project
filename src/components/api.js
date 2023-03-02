@@ -5,17 +5,6 @@ export const config = {
     "Content-Type": "application/json",
   },
 };
-//добавление карточки с сервера
-export function getInitialCards() {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
-}
 //изменение профиля с сервера
 export function getInitialProfile() {
   return fetch(`${config.baseUrl}/users/me`, {
@@ -36,17 +25,40 @@ export function changeProfile(name, about) {
       name: name,
       about: about,
     }),
+  })
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 //добавление карточки
-function addCard() {
-  fetch(`${config.baseUrl}/cards`, {
+export function addCard(name, link) {
+  return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
-      name: "Булочка",
-      link: "https://www.rupixel.ru/files/preview/1280x853/21670417257pgyexoxqqlcsmewhcd6cqwr4scfhnfxv03o1n9g5ssw8yjet9llkfwrcpiougdees0vn4tcdixh5q8oxysacfbtztxa7kxcujivr.jpg",
+      name: name,
+      link: link,
     }),
+  })
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
+}
+//добавление карточки с сервера
+export function getInitialCards() {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers,
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 //загрузка на кнопке
@@ -56,4 +68,43 @@ export function renderLoading(button,isLoading) {
   } else {
     button.textContent=`${button.textContent}`
   }
+}
+//удаление карточки
+export function deleteCardServer(card) {
+  return fetch(`${config.baseUrl}/cards/${card._id}`, {
+    method: "DELETE",
+    headers: config.headers,
+  })
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
+}
+//добавление like
+export function addLikeServer(card) {
+  return fetch(`${config.baseUrl}/cards/likes/${card._id}`, {
+    method: "PUT",
+    headers: config.headers,
+  })
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
+}
+//удаление like
+export function deleteLikeServer(card) {
+  return fetch(`${config.baseUrl}/cards/likes/${card._id}`, {
+    method: "DELETE",
+    headers: config.headers,
+  })
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
 }
