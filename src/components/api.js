@@ -16,27 +16,44 @@ export function getInitialCards() {
     return Promise.reject(`Ошибка: ${res.status}`);
   });
 }
+//изменение профиля с сервера
+export function getInitialProfile() {
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers,
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
+}
 //изменение профиля
-export function changeProfile() {
+export function changeProfile(name, about) {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
-      name: "Marie Skłodowska Curie",
-      about: "Physicist and Chemist",
+      name: name,
+      about: about,
     }),
   });
 }
 //добавление карточки
-function addCard(){
+function addCard() {
   fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
       name: "Булочка",
-      link: "https://www.rupixel.ru/files/preview/1280x853/21670417257pgyexoxqqlcsmewhcd6cqwr4scfhnfxv03o1n9g5ssw8yjet9llkfwrcpiougdees0vn4tcdixh5q8oxysacfbtztxa7kxcujivr.jpg"
+      link: "https://www.rupixel.ru/files/preview/1280x853/21670417257pgyexoxqqlcsmewhcd6cqwr4scfhnfxv03o1n9g5ssw8yjet9llkfwrcpiougdees0vn4tcdixh5q8oxysacfbtztxa7kxcujivr.jpg",
     }),
   });
 }
-addCard();
-
+//загрузка на кнопке
+export function renderLoading(button,isLoading) {
+  if (isLoading) {
+    button.textConten=`${button.textContent}...`
+  } else {
+    button.textContent=`${button.textContent}`
+  }
+}

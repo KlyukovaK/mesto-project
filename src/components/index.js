@@ -3,7 +3,13 @@ import { openPopup, closePopup } from "./modal.js";
 import { enableValidation } from "./validate.js";
 import { createCard } from "./card.js";
 import { initialCards } from "./initialCards.js";
-import { config, getInitialCards, changeProfile,addCard} from "./api.js";
+import {
+  getInitialCards,
+  getInitialProfile,
+  changeProfile,
+  renderLoading,
+  addCard,
+} from "./api.js";
 const profilePopup = document.querySelector(".profile-popup");
 const cardPopup = document.querySelector(".card-popup");
 const nameInput = profilePopup.querySelector("#name");
@@ -14,6 +20,7 @@ const cardPopupImage = cardPopup.querySelector("#images");
 const elementContainer = document.querySelector(".elements");
 const profileName = document.querySelector(".profile-info__title");
 const profileJob = document.querySelector(".profile-info__subtitle");
+const popupProfileAddContent = profilePopup.querySelector(".popup__button");
 const popupCardAddContent = cardPopup.querySelector(".popup__button");
 const popupProfileOpenButton = document.querySelector(".profile-info__button");
 const popupCardOpenButton = document.querySelector(".profile__button");
@@ -31,16 +38,36 @@ popupCloseButtons.forEach((button) => {
   button.addEventListener("click", () => closePopup(popup));
 });
 
+getInitialProfile()
+.then((resalt) => {
+  profileName.textContent = resalt.name;
+  profileJob.textContent = resalt.about;
+  nameInput.value = resalt.name;
+  jobInput.value = resalt.about;
+})
+.catch((err) => {
+  console.log(err);
+})
+
 /*сохранение в popup1*/
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
+  changeProfile(nameInput.value, jobInput.value);
+  renderLoading(popupProfileAddContent,true);
+  getInitialProfile()
+    .then((resalt) => {
+      profileName.textContent = resalt.name;
+      profileJob.textContent = resalt.about;
+      avararProfile.src = resalt.avatar;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(()=> {renderLoading(popupProfileAddContent,false)})
   closePopup(profilePopup);
 }
 /*сохранение в popup1*/
 profilePopup.addEventListener("submit", handleProfileFormSubmit);
-
 //добавление карточек из popup
 function submitCardForm(evt) {
   evt.preventDefault();
@@ -68,17 +95,6 @@ enableValidation({
   errorClass: "popup__item-error_active",
 });
 export { nameInput, jobInput, cardPopupText, cardPopupImage };
-
-//запрос на имя пользователя
-changeProfile ()
-  .then((res) => {
-    return res.json();
-  })
-  .then((resalt) => {
-    profileName.textContent = resalt.name;
-    profileJob.textContent = resalt.about;
-    avararProfile.src = resalt.avatar;
-  });
 
 //добавление карточек
 getInitialCards()
