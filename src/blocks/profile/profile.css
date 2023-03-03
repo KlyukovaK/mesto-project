@@ -6,6 +6,7 @@
   grid-template-rows: 120px;
   gap: 30px;
   align-content: center;
+  position: relative;
 }
 
 @media screen and (max-width:900px) {

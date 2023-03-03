@@ -1,10 +1,8 @@
 import { openImage, nameImage, imagePopup } from "./utils.js";
 import { openPopup, closePopup } from "./modal.js";
 import {
-  getInitialCards,
-  getInitialProfile,
-  changeProfile,
-  renderLoading,
+  addLikeServer,
+  deleteLikeServer,
   deleteCardServer,
 } from "./api.js";
 
@@ -19,6 +17,7 @@ function addLike(evt) {
 function deleteCard(element) {
   element.remove();
 }
+
 /*добавление карточек*/
 export function createCard(card, authorId) {
   const element = cardTemplate.querySelector(".element").cloneNode("true");
@@ -36,15 +35,42 @@ export function createCard(card, authorId) {
     element.querySelector(".element__delete").addEventListener("click", () => {
       openPopup(deletePopup);
       deletePopup.addEventListener("submit", (evt) => {
-          evt.preventDefault();
-          deleteCardServer(card).then(() => deleteCard(element));
-          closePopup(deletePopup);
-        })
+        evt.preventDefault();
+        deleteCardServer(card)
+          .then(() => deleteCard(element))
+          .catch((err) => {
+            console.log(err);
+          });
+        closePopup(deletePopup);
+      });
     });
   }
-
+  card.likes.forEach((like) => {
+    if (like._id === authorId) {
+      element.querySelector(".element__like").classList.add("element__like_active");
+    }
+  });
+  //добавление и удаление карточки
   element.querySelector(".element__like").addEventListener("click", (evt) => {
-    addLike(evt);
+    if (evt.target.classList.contains("element__like_active")) {
+      deleteLikeServer(card)
+        .then((res) => {
+          addLike(evt);
+          countLike.textContent = res.likes.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      addLikeServer(card)
+        .then((res) => {
+          addLike(evt);
+          countLike.textContent = res.likes.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   });
 
   /*openImg*/

@@ -4,6 +4,5 @@
   object-fit: cover;
   border-radius: 50%;
   min-width: 120px;
-  max-width: 120px;
-
+  float: left;
 }

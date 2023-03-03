@@ -25,7 +25,7 @@ const popupCardAddContent = cardPopup.querySelector(".popup__button");
 const popupProfileOpenButton = document.querySelector(".profile-info__button");
 const popupCardOpenButton = document.querySelector(".profile__button");
 const popupCloseButtons = document.querySelectorAll(".popup__close");
-
+const avararPopup = document.querySelector(".avatar-popup");
 popupProfileOpenButton.addEventListener("click", () => {
   openPopup(profilePopup);
 }); //open popup1
@@ -120,4 +120,6 @@ enableValidation({
   errorClass: "popup__item-error_active",
 });
 
-
+document.querySelector(".profile__change").addEventListener("click", () => {
+  openPopup(avararPopup);
+});

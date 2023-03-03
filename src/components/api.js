@@ -108,3 +108,4 @@ export function deleteLikeServer(card) {
     return Promise.reject(`Ошибка: ${res.status}`);
   });
 }
+//добавление avatar
