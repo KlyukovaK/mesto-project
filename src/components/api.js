@@ -1,4 +1,3 @@
-import { popupCardAddContent } from "./index.js";
 export const config = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-21",
   headers: {
@@ -56,14 +55,8 @@ export function getInitialCards() {
   });
 }
 //загрузка на кнопке
-export function renderLoading(button, isLoading) {
-  if (isLoading & button !== popupCardAddContent) {
-    button.textContent = 'Сохранение...';
-  } else if (isLoading & button === popupCardAddContent) {
-    button.textContent = 'Создать...';
-  } else {
-    button.textContent = 'Сохранить';
-  }
+export function renderLoading(button, text) {
+    button.textContent = text;
 }
 //удаление карточки
 export function deleteCardServer(card) {

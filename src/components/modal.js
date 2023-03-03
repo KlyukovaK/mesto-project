@@ -2,13 +2,13 @@
 function openPopup(popupElement) {
   popupElement.classList.add("popup_opened");
   document.addEventListener("keydown", closeByEsc);
-  document.addEventListener("click", closeByBackground);
+  document.addEventListener("mousedown", closeByBackground);
 }
 
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_opened");
   document.removeEventListener("keydown", closeByEsc);
-  document.removeEventListener("click", closeByBackground);
+  document.removeEventListener("mousedown", closeByBackground);
 }
 
 // закрыте popup Esc

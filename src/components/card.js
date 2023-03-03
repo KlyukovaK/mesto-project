@@ -1,10 +1,6 @@
 import { openImage, nameImage, imagePopup } from "./utils.js";
 import { openPopup, closePopup } from "./modal.js";
-import {
-  addLikeServer,
-  deleteLikeServer,
-  deleteCardServer,
-} from "./api.js";
+import { addLikeServer, deleteLikeServer, deleteCardServer } from "./api.js";
 
 const cardTemplate = document.querySelector("#element").content;
 const deletePopup = document.querySelector(".delete-popup");
@@ -29,24 +25,28 @@ export function createCard(card, authorId) {
   elementText.textContent = card.name;
   countLike.textContent = card.likes.length;
   //проверка на удаление карточки
-  if (authorId == card.owner._id) {
+  if (authorId === card.owner._id) {
     delite.classList.add("element__delete_active");
     element.querySelector(".element__delete").addEventListener("click", () => {
       openPopup(deletePopup);
       deletePopup.addEventListener("submit", (evt) => {
         evt.preventDefault();
         deleteCardServer(card)
-          .then(() => deleteCard(element))
+          .then(() => {
+            deleteCard(element);
+            closePopup(deletePopup);
+          })
           .catch((err) => {
             console.log(err);
           });
-        closePopup(deletePopup);
       });
     });
   }
   card.likes.forEach((like) => {
     if (like._id === authorId) {
-      element.querySelector(".element__like").classList.add("element__like_active");
+      element
+        .querySelector(".element__like")
+        .classList.add("element__like_active");
     }
   });
   //добавление и удаление карточки

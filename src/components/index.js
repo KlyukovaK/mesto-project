@@ -8,7 +8,7 @@ import {
   changeProfile,
   renderLoading,
   addCard,
-  changeAvatar
+  changeAvatar,
 } from "./api.js";
 const profilePopup = document.querySelector(".profile-popup");
 const cardPopup = document.querySelector(".card-popup");
@@ -31,6 +31,10 @@ const popupAvatareAddContent = avararPopup.querySelector(".popup__button");
 
 popupProfileOpenButton.addEventListener("click", () => {
   openPopup(profilePopup);
+  getInitialProfile().then((resalt) => {
+    nameInput.value = resalt.name;
+    jobInput.value = resalt.about;
+  });
 }); //open popup1
 popupCardOpenButton.addEventListener("click", () => {
   openPopup(cardPopup);
@@ -44,21 +48,19 @@ popupCloseButtons.forEach((button) => {
 /*сохранение в popup1*/
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  renderLoading(popupProfileAddContent, true);
+  renderLoading(popupProfileAddContent, "Сохранить...");
   changeProfile(nameInput.value, jobInput.value)
-  .then((resalt) => {
-    profileName.textContent = resalt.name;
-    profileJob.textContent = resalt.about;
-    nameInput.value = resalt.name;
-    jobInput.value = resalt.about;
-  })
+    .then((resalt) => {
+      profileName.textContent = resalt.name;
+      profileJob.textContent = resalt.about;
+      closePopup(profilePopup);
+    })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      renderLoading(popupProfileAddContent, false);
+      renderLoading(popupProfileAddContent, "Сохранить");
     });
-  closePopup(profilePopup);
 }
 /*сохранение в popup1*/
 profilePopup.addEventListener("submit", handleProfileFormSubmit);
@@ -66,22 +68,22 @@ profilePopup.addEventListener("submit", handleProfileFormSubmit);
 
 function submitCardForm(evt) {
   evt.preventDefault();
-  renderLoading(popupCardAddContent, true);
+  renderLoading(popupCardAddContent, "Создать...");
   addCard(cardPopupText.value, cardPopupImage.value)
     .then((card) => {
       const authorId = card.owner._id;
       elementContainer.prepend(createCard(card, authorId));
+      evt.target.reset();
+      popupCardAddContent.classList.add("popup__button_inactive");
+      popupCardAddContent.setAttribute("disabled", "disabled");
+      closePopup(cardPopup);
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      renderLoading(popupCardAddContent, false);
+      renderLoading(popupCardAddContent, "Сохранить");
     });
-  evt.target.reset();
-  popupCardAddContent.classList.add("popup__button_inactive");
-  popupCardAddContent.setAttribute("disabled", "disabled");
-  closePopup(cardPopup);
 }
 cardPopup.addEventListener("submit", submitCardForm);
 
@@ -100,45 +102,42 @@ document.querySelector(".profile__change").addEventListener("click", () => {
 });
 
 /*сохранение в popup1*/
-function submitChengeAvatar (evt) {
+function submitChengeAvatar(evt) {
   evt.preventDefault();
-  renderLoading(popupAvatareAddContent, true);
+  renderLoading(popupAvatareAddContent, "Сохранить...");
   changeAvatar(avatarInput.value)
-  .then((resalt) => {
-    avararProfile.src = resalt.avatar;
-  })
+    .then((resalt) => {
+      avararProfile.src = resalt.avatar;
+      closePopup(avararPopup);
+    })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      renderLoading(popupAvatareAddContent, false);
+      renderLoading(popupAvatareAddContent, "Сохранить");
     });
-  closePopup(avararPopup);
 }
 avararPopup.addEventListener("submit", submitChengeAvatar);
 
 getInitialProfile()
-.then((resalt) => {
-  profileName.textContent = resalt.name;
-  profileJob.textContent = resalt.about;
-  avararProfile.src = resalt.avatar;
-  nameInput.value = resalt.name;
-  jobInput.value = resalt.about;
-  return resalt
-})
-.then ((resalt)=>{
-  const authorId = resalt._id;
-  getInitialCards()
-  .then((cards) => {
-    cards.forEach(function (card) {
-      authorId
-      elementContainer.append(createCard(card, authorId));
-    });
+  .then((resalt) => {
+    profileName.textContent = resalt.name;
+    profileJob.textContent = resalt.about;
+    avararProfile.src = resalt.avatar;
+    return resalt;
+  })
+  .then((resalt) => {
+    const authorId = resalt._id;
+    getInitialCards()
+      .then((cards) => {
+        cards.forEach(function (card) {
+          elementContainer.append(createCard(card, authorId));
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   })
   .catch((err) => {
     console.log(err);
   });
-})
-.catch((err) => {
-  console.log(err);
-});
