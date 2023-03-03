@@ -2,13 +2,13 @@ import "../pages/index.css";
 import { openPopup, closePopup } from "./modal.js";
 import { enableValidation } from "./validate.js";
 import { createCard } from "./card.js";
-import { initialCards } from "./initialCards.js";
 import {
   getInitialCards,
   getInitialProfile,
   changeProfile,
   renderLoading,
   addCard,
+  changeAvatar
 } from "./api.js";
 const profilePopup = document.querySelector(".profile-popup");
 const cardPopup = document.querySelector(".card-popup");
@@ -21,11 +21,14 @@ const elementContainer = document.querySelector(".elements");
 const profileName = document.querySelector(".profile-info__title");
 const profileJob = document.querySelector(".profile-info__subtitle");
 const popupProfileAddContent = profilePopup.querySelector(".popup__button");
-const popupCardAddContent = cardPopup.querySelector(".popup__button");
+export const popupCardAddContent = cardPopup.querySelector(".popup__button");
 const popupProfileOpenButton = document.querySelector(".profile-info__button");
 const popupCardOpenButton = document.querySelector(".profile__button");
 const popupCloseButtons = document.querySelectorAll(".popup__close");
 const avararPopup = document.querySelector(".avatar-popup");
+const avatarInput = avararPopup.querySelector("#avatar_imag");
+const popupAvatareAddContent = avararPopup.querySelector(".popup__button");
+
 popupProfileOpenButton.addEventListener("click", () => {
   openPopup(profilePopup);
 }); //open popup1
@@ -37,34 +40,6 @@ popupCloseButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => closePopup(popup));
 });
-
-getInitialProfile()
-.then((resalt) => {
-  profileName.textContent = resalt.name;
-  profileJob.textContent = resalt.about;
-  avararProfile.src = resalt.avatar;
-  nameInput.value = resalt.name;
-  jobInput.value = resalt.about;
-  return resalt
-})
-.then ((resalt)=>{
-  const authorId = resalt._id;
-  getInitialCards()
-  .then((cards) => {
-    cards.forEach(function (card) {
-      authorId
-      elementContainer.append(createCard(card, authorId));
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-})
-.catch((err) => {
-  console.log(err);
-});
-
-
 
 /*сохранение в popup1*/
 function handleProfileFormSubmit(evt) {
@@ -122,4 +97,48 @@ enableValidation({
 
 document.querySelector(".profile__change").addEventListener("click", () => {
   openPopup(avararPopup);
+});
+
+/*сохранение в popup1*/
+function submitChengeAvatar (evt) {
+  evt.preventDefault();
+  renderLoading(popupAvatareAddContent, true);
+  changeAvatar(avatarInput.value)
+  .then((resalt) => {
+    avararProfile.src = resalt.avatar;
+  })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoading(popupAvatareAddContent, false);
+    });
+  closePopup(avararPopup);
+}
+avararPopup.addEventListener("submit", submitChengeAvatar);
+
+getInitialProfile()
+.then((resalt) => {
+  profileName.textContent = resalt.name;
+  profileJob.textContent = resalt.about;
+  avararProfile.src = resalt.avatar;
+  nameInput.value = resalt.name;
+  jobInput.value = resalt.about;
+  return resalt
+})
+.then ((resalt)=>{
+  const authorId = resalt._id;
+  getInitialCards()
+  .then((cards) => {
+    cards.forEach(function (card) {
+      authorId
+      elementContainer.append(createCard(card, authorId));
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+})
+.catch((err) => {
+  console.log(err);
 });

@@ -8,7 +8,6 @@ import {
 
 const cardTemplate = document.querySelector("#element").content;
 const deletePopup = document.querySelector(".delete-popup");
-const popupDeleteCard = deletePopup.querySelector(".popup__button");
 //добавление лайка
 function addLike(evt) {
   evt.target.classList.toggle("element__like_active");

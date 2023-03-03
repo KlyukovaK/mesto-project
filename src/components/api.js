@@ -1,3 +1,4 @@
+import { popupCardAddContent } from "./index.js";
 export const config = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-21",
   headers: {
@@ -5,15 +6,19 @@ export const config = {
     "Content-Type": "application/json",
   },
 };
+//проверка
+function checkPromise(res){
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`)
+}
 //изменение профиля с сервера
 export function getInitialProfile() {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
   }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return checkPromise(res);
   });
 }
 //изменение профиля
@@ -25,12 +30,8 @@ export function changeProfile(name, about) {
       name: name,
       about: about,
     }),
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+  }).then((res) => {
+    return checkPromise(res);
   });
 }
 //добавление карточки
@@ -42,12 +43,8 @@ export function addCard(name, link) {
       name: name,
       link: link,
     }),
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+  }).then((res) => {
+    return checkPromise(res);
   });
 }
 //добавление карточки с сервера
@@ -55,18 +52,17 @@ export function getInitialCards() {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers,
   }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return checkPromise(res);
   });
 }
 //загрузка на кнопке
-export function renderLoading(button,isLoading) {
-  if (isLoading) {
-    button.textConten=`${button.textContent}...`
+export function renderLoading(button, isLoading) {
+  if (isLoading & button !== popupCardAddContent) {
+    button.textContent = 'Сохранение...';
+  } else if (isLoading & button === popupCardAddContent) {
+    button.textContent = 'Создать...';
   } else {
-    button.textContent=`${button.textContent}`
+    button.textContent = 'Сохранить';
   }
 }
 //удаление карточки
@@ -74,12 +70,8 @@ export function deleteCardServer(card) {
   return fetch(`${config.baseUrl}/cards/${card._id}`, {
     method: "DELETE",
     headers: config.headers,
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+  }).then((res) => {
+    return checkPromise(res);
   });
 }
 //добавление like
@@ -87,12 +79,8 @@ export function addLikeServer(card) {
   return fetch(`${config.baseUrl}/cards/likes/${card._id}`, {
     method: "PUT",
     headers: config.headers,
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+  }).then((res) => {
+    return checkPromise(res);
   });
 }
 //удаление like
@@ -100,12 +88,19 @@ export function deleteLikeServer(card) {
   return fetch(`${config.baseUrl}/cards/likes/${card._id}`, {
     method: "DELETE",
     headers: config.headers,
-  })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+  }).then((res) => {
+    return checkPromise(res);
   });
 }
 //добавление avatar
+export function changeAvatar(avatar) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: avatar
+    }),
+  }).then((res) => {
+    return checkPromise(res);
+  });
+}
