@@ -10,4 +10,4 @@
 * Методология БЭМ
 * JavaScript
 
-## Ссылка на проект:  https://klyukovak.github.io/mesto-project/index.html
+## Ссылка на проект:  https://klyukovak.github.io/mesto-project
