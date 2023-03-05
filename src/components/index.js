@@ -31,10 +31,8 @@ const popupAvatareAddContent = avararPopup.querySelector(".popup__button");
 
 popupProfileOpenButton.addEventListener("click", () => {
   openPopup(profilePopup);
-  getInitialProfile().then((resalt) => {
-    nameInput.value = resalt.name;
-    jobInput.value = resalt.about;
-  });
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileJob.textContent;
 }); //open popup1
 popupCardOpenButton.addEventListener("click", () => {
   openPopup(cardPopup);
