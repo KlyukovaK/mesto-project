@@ -1,7 +1,6 @@
 import { openImage, nameImage, imagePopup } from "./utils.js";
 import { openPopup, closePopup } from "./modal.js";
-import { addLikeServer, deleteLikeServer, deleteCardServer } from "./api.js";
-
+import { api } from "../components/api.js";
 const cardTemplate = document.querySelector("#element").content;
 const deletePopup = document.querySelector(".delete-popup");
 //добавление лайка
@@ -31,7 +30,8 @@ export function createCard(card, authorId) {
       openPopup(deletePopup);
       deletePopup.addEventListener("submit", (evt) => {
         evt.preventDefault();
-        deleteCardServer(card)
+        api
+          .deleteCardServer(card)
           .then(() => {
             deleteCard(element);
             closePopup(deletePopup);
@@ -52,7 +52,8 @@ export function createCard(card, authorId) {
   //добавление и удаление карточки
   element.querySelector(".element__like").addEventListener("click", (evt) => {
     if (evt.target.classList.contains("element__like_active")) {
-      deleteLikeServer(card)
+      api
+        .deleteLikeServer(card)
         .then((res) => {
           addLike(evt);
           countLike.textContent = res.likes.length;
@@ -61,7 +62,8 @@ export function createCard(card, authorId) {
           console.log(err);
         });
     } else {
-      addLikeServer(card)
+      api
+        .addLikeServer(card)
         .then((res) => {
           addLike(evt);
           countLike.textContent = res.likes.length;
