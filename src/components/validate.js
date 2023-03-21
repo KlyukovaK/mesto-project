@@ -30,7 +30,7 @@ function hasInvalidInput(inputList) {
     return !inputElement.validity.valid;
   });
 }
-
+adadad
 //функция для активации кнопки
 function toggleButtonState(inputList, buttonElement, config) {
   if (hasInvalidInput(inputList)) {
@@ -67,4 +67,4 @@ function enableValidation(config) {
     setEventListeners(formElement, config);
   });
 }
-export {enableValidation}
+export { enableValidation }
