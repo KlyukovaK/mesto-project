@@ -139,3 +139,5 @@ getInitialProfile()
   .catch((err) => {
     console.log(err);
   });
+
+//дописала строчку, чтобы добавить в pull requests
