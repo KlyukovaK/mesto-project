@@ -16,3 +16,6 @@ export const popupCloseButtons = document.querySelectorAll(".popup__close");
 export const avararPopup = document.querySelector(".avatar-popup");
 export const avatarInput = avararPopup.querySelector("#avatar_imag");
 export const popupAvatareAddContent = avararPopup.querySelector(".popup__button");
+export const imagePopup = document.querySelector(".image-popup");
+export const openImage = imagePopup.querySelector(".popup__img");
+export const nameImage = imagePopup.querySelector(".popup__img-name");

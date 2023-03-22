@@ -1,6 +1,6 @@
 import "./index.css";
 import { openPopup, closePopup } from "../components/modal.js";
-import { enableValidation } from "../components/validate.js";
+import { FormValidator } from "../components/validate.js";
 import { createCard } from "../components/card.js";
 import { api, renderLoading } from "../components/api.js";
 import {
@@ -107,7 +107,7 @@ function submitCardForm(evt) {
 cardPopup.addEventListener("submit", submitCardForm);
 
 //валидация форм
-enableValidation({
+const enableValidation = new FormValidator({
   formSelector: ".popup__input-container",
   inputSelector: ".popup__item",
   submitButtonSelector: ".popup__button",
@@ -115,6 +115,8 @@ enableValidation({
   inputErrorClass: "popup__item_type_error",
   errorClass: "popup__item-error_active",
 });
+
+enableValidation.enableValidation();
 
 document.querySelector(".profile__change").addEventListener("click", () => {
   openPopup(avararPopup);

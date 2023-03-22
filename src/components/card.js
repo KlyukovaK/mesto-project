@@ -1,4 +1,4 @@
-import { openImage, nameImage, imagePopup } from "./utils.js";
+import { openImage, nameImage, imagePopup } from "../utils/constants.js";
 import { openPopup, closePopup } from "./modal.js";
 import { api } from "../components/api.js";
 const cardTemplate = document.querySelector("#element").content;
