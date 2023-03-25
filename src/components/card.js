@@ -1,6 +1,7 @@
 import { openImage, nameImage, imagePopup } from "../utils/constants.js";
-import { openPopup, closePopup } from "./modal.js";
-import { api } from "../components/api.js";
+import { Popup } from "./Popup.js";
+import { PopupWithImage } from "./PopupWithImage.js";
+import { api } from "./API.js";
 const cardTemplate = document.querySelector("#element").content;
 const deletePopup = document.querySelector(".delete-popup");
 //добавление лайка
@@ -28,18 +29,22 @@ export function createCard(card, authorId) {
     delite.classList.add("element__delete_active");
     element.querySelector(".element__delete").addEventListener("click", () => {
       openPopup(deletePopup);
-      deletePopup.addEventListener("submit", (evt) => {
-        evt.preventDefault();
-        api
-          .deleteCardServer(card)
-          .then(() => {
-            deleteCard(element);
-            closePopup(deletePopup);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
+      deletePopup.addEventListener(
+        "submit",
+        (evt) => {
+          evt.preventDefault();
+          api
+            .deleteCardServer(card)
+            .then(() => {
+              deleteCard(element);
+              closePopup(deletePopup);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+        { once: true }
+      );
     });
   }
   card.likes.forEach((like) => {
@@ -75,12 +80,13 @@ export function createCard(card, authorId) {
   });
 
   /*openImg*/
-  function handleImageClick() {
-    openImage.src = card.link;
-    openImage.alt = card.name;
-    nameImage.textContent = card.name;
-    openPopup(imagePopup);
-  }
-  elementImage.addEventListener("click", handleImageClick);
+  const handleImageClick = new PopupWithImage(
+    ".image-popup",
+    card.link,
+    card.name
+  );
+  elementImage.addEventListener("click", () => {
+    handleImageClick.openPopup();
+  });
   return element;
 }
