@@ -1,7 +1,7 @@
 import "./index.css";
 import { Popup } from "../components/Popup.js";
 import { FormValidator } from "../components/FormValidator.js";
-import { createCard } from "../components/card.js";
+import { Card } from "../components/card.js";
 import { api, renderLoading } from "../components/API.js";
 import {
   nameInput,
