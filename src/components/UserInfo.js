@@ -3,9 +3,7 @@ export default class UserInfo {
         this._profileTitle = profileTitle;
         this._profileAbout = profileAbout;
         this._profileAvatar = profileAvatar;
-        this._name = document.querySelector(profileTitle);
-        this._about = document.querySelector(profileAbout);
-        this._avatar = document.querySelector(profileAvatar);
+
     }
 
     getUserInfo() {
@@ -15,10 +13,12 @@ export default class UserInfo {
         }
     }
 
-    setUserInfo(data) {
-        this.userId = data._id;
-        this._name.textContent = data.name;
-        this._about.textContent = data.about;
-        this._avatar.src = data.avatar;
+    setUserUnfo({ name, about, avatar }) {
+        this._name = name;
+        this._about = about;
+        this._avatar = avatar;
+        this._profileTitle.textContent = this._name;
+        this._profileAbout.textContent = this._about;
+        this._profileAvatar.src = this._avatar;
     }
 }

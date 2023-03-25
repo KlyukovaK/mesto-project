@@ -52,8 +52,8 @@ export class Api {
     });
   }
   //удаление карточки
-  deleteCardServer(card) {
-    return fetch(`${this._baseUrl}/cards/${card._id}`, {
+  deleteCardServer(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {
@@ -89,6 +89,9 @@ export class Api {
     }).then((res) => {
       return this._checkPromise(res);
     });
+  }
+  loadData() {
+    return Promise.all([this.getInitialProfile(), this.getInitialCards()]);
   }
 }
 export const api = new Api({

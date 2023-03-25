@@ -20,3 +20,11 @@ export const imagePopup = document.querySelector(".image-popup");
 export const openImage = imagePopup.querySelector(".popup__img");
 export const nameImage = imagePopup.querySelector(".popup__img-name");
 export const cardTemplate = '#element';
+export const confimPopup = '.delete-popup';
+export const popups = {
+    profile: '.profile-popup',
+    card: '.card-popup',
+    avatar: '.avatar-popup',
+    delete: '.delete-popup',
+    image: '.image-popup'
+}
