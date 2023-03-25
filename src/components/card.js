@@ -172,13 +172,13 @@ export function createCard(card, authorId) {
   });
 
   /*openImg*/
-  function handleImageClick() {
-    openImage.src = card.link;
-    openImage.alt = card.name;
-    nameImage.textContent = card.name;
-    openPopup(imagePopup);
-  }
-  elementImage.addEventListener("click", handleImageClick);
-  return element;
-}
-*/
+//   function handleImageClick() {
+//     openImage.src = card.link;
+//     openImage.alt = card.name;
+//     nameImage.textContent = card.name;
+//     openPopup(imagePopup);
+//   }
+//   elementImage.addEventListener("click", handleImageClick);
+//   return element;
+// }
+// */
