@@ -1,3 +1,4 @@
+import { PopupWithImage } from "./PopupWithImage.js";
 export default class Card {
   constructor({ name, link, _id, likes, owner }, { handleLikeClick }, { handleCardClick }, { handleCardDelete }, userId, selector) {
     this._selector = selector;
@@ -85,6 +86,17 @@ export default class Card {
       this._handleCardClick({ name: this._name, link: this._link })
     })
   }
+    /*openImg*/
+//   handleCardClick() {
+//      const handleImageClick = new PopupWithImage(
+  //   ".image-popup",
+  //   card.link,
+  //   card.name
+  // );
+  // elementImage.addEventListener("click", () => {
+  //   handleImageClick.openPopup();
+  // });
+// }
 }
 
 
