@@ -20,32 +20,33 @@ import {
   avararPopup,
   avatarInput,
   popupAvatareAddContent,
+  cardTemplate,
 } from "../utils/constants.js";
+import UserInfo from "../components/UserInfo";
+import Card from "../components/card.js";
 
-api
-  .getInitialProfile()
-  .then((resalt) => {
-    profileName.textContent = resalt.name;
-    profileJob.textContent = resalt.about;
-    avararProfile.src = resalt.avatar;
-    return resalt;
-  })
-  .then((resalt) => {
-    const authorId = resalt._id;
-    api
-      .getInitialCards()
-      .then((cards) => {
-        cards.forEach(function (card) {
-          elementContainer.append(createCard(card, authorId));
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+
+let currentCard = null;
+
+
+const renderProfileForm = () => {
+  const userData = userInfo.getUserInfo();
+  nameInput.value = userData.name;
+  jobInput.value = userData.about;
+}
+
+const userInfo = new UserInfo({
+  profileName, profileJob, avararProfile
+})
+
+const createCard = data => {
+  const card = new Card(data, userInfo.userId, cardTemplate)
+}
+
+
+
+
+
 
 const profilePopup = new Popup ('.profile-popup');
 popupProfileOpenButton.addEventListener("click", () => {
