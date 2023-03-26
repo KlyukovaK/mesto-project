@@ -31,6 +31,7 @@ import PopupWithForm from "../components/PopupWithForm";
 import PopupWithImage from "../components/PopupWithImage";
 import Section from "../components/Section";
 
+let userId;
 
 const profilePopupApi = new PopupWithForm(popups.profile, {
   submit: (data) => {
@@ -56,7 +57,7 @@ popupProfileOpenButton.addEventListener('click', () => {
 })
 profilePopupApi.setEventListeners();
 //open popup2
-const cardPopup = new PopupWithForm(popups.card);
+const cardPopup = new Popup(popups.card);
 popupCardOpenButton.addEventListener("click", () => {
   cardPopup.open();
 });
@@ -94,7 +95,7 @@ function handleLikeCard(card, data) {
       console.log(err)
     })
 }
-
+/*
 function handleLikeCard(card, data) {
   const like = card.idLiked() ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
   like
@@ -105,16 +106,16 @@ function handleLikeCard(card, data) {
       console.log(err)
     })
 }
-
+*/
 const newCard = new Section({
   renderer: (item) => {
-    const createCard = new Card(item, userId, cardTemplate, {
+    const card = new Card(item, userId, cardTemplate, {
       handleCardClick: (name, link) => { popupWithImage.open(name, link) }
     },
       {
         handleLikeClick: (card, data) => { handleLikeCard(card, data) }
       });
-    return createCard.createCard();
+    return card.createCard();
   }
 }, cardContainer)
 

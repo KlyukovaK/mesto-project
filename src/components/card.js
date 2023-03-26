@@ -8,7 +8,6 @@ export default class Card {
     this._owner = owner;
     this._handleLikeClick = handleLikeClick;
     this._handleCardClick = handleCardClick;
-    this._handleCardDelete = handleCardDelete;
     this._userId = userId;
   }
   _getElement() {
