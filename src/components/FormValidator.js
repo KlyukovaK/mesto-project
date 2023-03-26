@@ -10,15 +10,15 @@ export class FormValidator {
   //функция добавления ошибки
   _showInputError(formElement, inputElement, errorMessage) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add(this.inputErrorClass);
+    inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(this.errorClass);
+    errorElement.classList.add(this._errorClass);
   }
   //функция удаления ошибки
   _hidleInputError(formElement, inputElement) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(this.inputErrorClass);
-    errorElement.classList.remove(this.errorClass);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
     errorElement.textContent = "";
   }
   // функция определения есть ошибка или нет
@@ -47,18 +47,18 @@ export class FormValidator {
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.disabled = true;
-      buttonElement.classList.add(this.inactiveButtonClass);
+      buttonElement.classList.add(this._inactiveButtonClass);
     } else {
       buttonElement.disabled = false;
-      buttonElement.classList.remove(this.inactiveButtonClass);
+      buttonElement.classList.remove(this._inactiveButtonClass);
     }
   }
   //функция перебора всех input в форме и их проверки
   _setEventListeners(formElement) {
     const inputList = Array.from(
-      formElement.querySelectorAll(this.inputSelector)
+      formElement.querySelectorAll(this._inputSelector)
     );
-    const buttonElement = formElement.querySelector(this.submitButtonSelector);
+    const buttonElement = formElement.querySelector(this._submitButtonSelector);
     this._toggleButtonState(inputList, buttonElement);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
@@ -69,9 +69,9 @@ export class FormValidator {
   }
   //функция перебора всех форм в документе
   enableValidation() {
-    const formList = Array.from(document.querySelectorAll(this.formSelector));
+    const formList = Array.from(document.querySelectorAll(this._formSelector));
     formList.forEach((formElement) => {
-      formElement.addEventListener("submit", function (evt) {
+      formElement.addEventListener("submit", (evt) => {
         evt.preventDefault();
       });
       this._setEventListeners(formElement);

@@ -90,6 +90,7 @@ export class Api {
       return this._checkPromise(res);
     });
   }
+
   loadData() {
     return Promise.all([this.getInitialProfile(), this.getInitialCards()]);
   }

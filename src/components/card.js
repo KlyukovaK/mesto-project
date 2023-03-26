@@ -21,9 +21,9 @@ export default class Card {
     this._card = this._getElement();
     this._cardImage = this._card.querySelector(".element__image");
     this._cardText = this._card.querySelector(".element__text");
-    this._cardLike = this._card.querySelector("element__like");
-    this._countLike = this._card.querySelector("element__count");
-    this._deleteCard = this._card.querySelector("element__delete");
+    this._cardLike = this._card.querySelector(".element__like");
+    this._countLike = this._card.querySelector(".element__count");
+    this._deleteCard = this._card.querySelector(".element__delete");
 
     this._cardText.textContent = this._name;
     this._cardImage.src = this._link;
