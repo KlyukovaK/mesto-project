@@ -32,6 +32,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 
 let userId;
+
 //валидация форм
 const enableValidation = new FormValidator({
   formSelector: ".popup__input-container",
@@ -52,7 +53,6 @@ const profilePopupApi = new PopupWithForm(popups.profile, {
       .changeProfile(nameInput.value, jobInput.value)
       .then((data) => {
         profileInfo.setUserInfo(data);
-        evt.target.reset();
         profilePopupApi.close();
       })
       .catch((err) => {
@@ -79,6 +79,7 @@ const cardPopup = new PopupWithForm(popups.card, {
       .then((data) => {
         const authorId = data.owner._id;
         newCards.addItem(data);
+        popupCardAddContent.classList.add("popup__button_inactive");
         popupCardAddContent.setAttribute("disabled", "disabled");
         cardPopup.close();
       })
@@ -86,7 +87,7 @@ const cardPopup = new PopupWithForm(popups.card, {
         console.log(err);
       })
       .finally(() => {
-        profilePopupApi.setSubmitButton("Сохранить");
+        cardPopup.setSubmitButton("Сохранить");
       });
   },
 });
@@ -96,29 +97,6 @@ popupCardOpenButton.addEventListener("click", () => {
   cardPopup.open();
 });
 
-//добавление карточек из popup
-// function submitCardForm(evt) {
-//   evt.preventDefault();
-//   renderLoading(popupCardAddContent, "Создать...");
-//   api
-//     .addCard(cardPopupText.value, cardPopupImage.value)
-//     .then((card) => {
-//       const authorId = card.owner._id;
-//       elementContainer.prepend(createCard(card, authorId));
-//       evt.target.reset();
-//       popupCardAddContent.classList.add("popup__button_inactive");
-//       popupCardAddContent.setAttribute("disabled", "disabled");
-//       closePopup(cardPopup);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     })
-//     .finally(() => {
-//       renderLoading(popupCardAddContent, "Сохранить");
-//     });
-// }
-// cardPopup.addEventListener("submit", submitCardForm);
-
 //open popup avatar
 const avararPopup = new PopupWithForm(popups.avatar, {
   submit: () => {
@@ -127,6 +105,7 @@ const avararPopup = new PopupWithForm(popups.avatar, {
       .changeAvatar(avatarInput.value)
       .then((data) => {
         profileInfo.setUserInfo(data);
+        popupAvatareAddContent.classList.add("popup__button_inactive");
         popupAvatareAddContent.setAttribute("disabled", "disabled");
         avararPopup.close();
       })
@@ -134,7 +113,7 @@ const avararPopup = new PopupWithForm(popups.avatar, {
         console.log(err);
       })
       .finally(() => {
-        profilePopupApi.setSubmitButton("Сохранить");
+        avararPopup.setSubmitButton("Сохранить");
       });
   },
 });
@@ -201,6 +180,7 @@ function renderProfileInfo(userInfo) {
 api
   .loadData()
   .then(([user, cards]) => {
+    userId = user._id;
     renderProfileInfo(user);
     profileInfo.getUserInfo(user);
     newCards.renderItems(cards);
