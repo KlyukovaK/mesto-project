@@ -28,3 +28,4 @@ export const popups = {
     delete: '.delete-popup',
     image: '.image-popup'
 }
+export const cardContainer = '.elements';

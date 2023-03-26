@@ -1,12 +1,5 @@
 export default class Card {
-  constructor(
-    { name, link, _id, likes, owner },
-    userId,
-    selector,
-    { handleCardClick },
-    { handleCardDelete },
-    { handleLikeClick }
-  ) {
+  constructor({ name, link, _id, likes, owner }, userId, selector, { handleCardClick }, /*{ handleCardDelete }*/ { handleLikeClick }) {
     this._selector = selector;
     this._name = name;
     this._link = link;
@@ -15,7 +8,6 @@ export default class Card {
     this._owner = owner;
     this._handleLikeClick = handleLikeClick;
     this._handleCardClick = handleCardClick;
-    this._handleCardDelete = handleCardDelete;
     this._userId = userId;
   }
   _getElement() {

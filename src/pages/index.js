@@ -21,14 +21,17 @@ import {
   imagePopup,
   confimPopup,
   popups,
+  cardContainer
 } from "../utils/constants.js";
 import { FormValidator } from "../components/FormValidator";
 import UserInfo from "../components/UserInfo";
 import Card from "../components/Card.js";
 import Popup from "../components/Popup";
 import PopupWithForm from "../components/PopupWithForm";
+import PopupWithImage from "../components/PopupWithImage";
 import Section from "../components/Section";
 
+let userId;
 
 const profilePopupApi = new PopupWithForm(popups.profile, {
   submit: ({name, about}) => {
@@ -78,14 +81,14 @@ popupProfileOpenButton.addEventListener('click', () => {
 })
 
 //open popup2
-const cardPopup = new Popup (popups.card);
+const cardPopup = new Popup(popups.card);
 popupCardOpenButton.addEventListener("click", () => {
   cardPopup.open();
 });
 cardPopup.setEventListeners();
 
 //open popup avatar
-const avararPopup= new Popup (popups.avatar)
+const avararPopup = new Popup(popups.avatar)
 document.querySelector(".profile__change").addEventListener("click", () => {
   avararPopup.open();
 });
@@ -95,23 +98,101 @@ avararPopup.setEventListeners();
 const profileInfo = new UserInfo({
   profileName, profileJob, avararProfile
 })
-api
-  .getInitialProfile()
-  .then((res) => {
-    renderProfileInfo(res);
-    profileInfo.getUserInfo(res);
+
+
+// api
+//   .getInitialProfile()
+//   .then((resalt) => {
+//     profileName.textContent = resalt.name;
+//     profileJob.textContent = resalt.about;
+//     avararProfile.src = resalt.avatar;
+//     return resalt;
+//   })
+
+function handleLikeCard(card, data) {
+  const like = card.idLiked() ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
+  like
+    .then((data) => {
+      card.setLike(data);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+/*
+function handleLikeCard(card, data) {
+  const like = card.idLiked() ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
+  like
+    .then((data) => {
+      card.setLike(data);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+*/
+const newCard = new Section({
+  renderer: (item) => {
+    const card = new Card(item, userId, cardTemplate, {
+      handleCardClick: (name, link) => { popupWithImage.open(name, link) }
+    },
+      {
+        handleLikeClick: (card, data) => { handleLikeCard(card, data) }
+      });
+    return card.createCard();
+  }
+}, cardContainer)
+
+function renderProfileInfo(userInfo) {
+  profileName.textContent = userInfo.name;
+  profileJob.textContent = userInfo.about;
+  avararProfile.src = userInfo.avatar;
+}
+
+api.loadData()
+  .then(([user, cards]) => {
+    renderProfileInfo(user);
+    profileInfo.getUserInfo(user);
+    newCard.renderItems(cards)
   })
   .catch((err) => {
     console.log(err)
   })
+/*
+popupProfileOpenButton.addEventListener("click", () => {
+  profilePopupApi.open();
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+}); //open popup1
+popupCardOpenButton.addEventListener("click", () => {
+  openPopup(cardPopup);
+}); //oprn popup2
 
-  function renderProfileInfo(userInfo) {
-    profileName.textContent = userInfo.name;
-    profileJob.textContent = userInfo.about;
-    avararProfile.src = userInfo.avatar;
-  }
+popupCloseButtons.forEach((button) => {
+  const popup = button.closest(".popup");
+  button.addEventListener("click", () => closePopup(popup));
+});
 
-
+/*сохранение в popup1*/
+// function handleProfileFormSubmit(evt) {
+//   evt.preventDefault();
+//   renderLoading(popupProfileAddContent, "Сохранить...");
+//   api
+//     .changeProfile(nameInput.value, jobInput.value)
+//     .then((resalt) => {
+//       profileName.textContent = resalt.name;
+//       profileJob.textContent = resalt.about;
+//       closePopup(profilePopup);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+//     .finally(() => {
+//       renderLoading(popupProfileAddContent, "Сохранить");
+//     });
+// }
+// /*сохранение в popup1*/
+// profilePopup.addEventListener("submit", handleProfileFormSubmit);
 //добавление карточек из popup
 // function submitCardForm(evt) {
 //   evt.preventDefault();
