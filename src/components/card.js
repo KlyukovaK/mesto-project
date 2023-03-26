@@ -27,6 +27,7 @@ export default class Card {
     this._deleteCard = this._card.querySelector(".element__delete");
 
 
+
     this._cardText.textContent = this._name;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
@@ -35,6 +36,7 @@ export default class Card {
     this.setEventListeners();
     this.setDeleteButton();
 
+    this.setDeleteButton();
     return this._card;
   }
 
@@ -67,9 +69,9 @@ export default class Card {
     }
   */
 
-  setDeleteButton() {
-    if (this._owner._id === this._userId) {
-      this._deleteCard.classList.add("element__delete_active");
+  _setDeleteButton() {
+    if (this._owner._id !== this._userId) {
+      this._deleteCard.remove();
     }
   }
 
