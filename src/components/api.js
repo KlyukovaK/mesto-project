@@ -61,8 +61,8 @@ export class Api {
     });
   }
   //добавление like
-  addLikeServer(card) {
-    return fetch(`${this._baseUrl}/cards/likes/${card._id}`, {
+  addLikeServer(id) {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: "PUT",
       headers: this._headers,
     }).then((res) => {
@@ -70,8 +70,8 @@ export class Api {
     });
   }
   //удаление like
-  deleteLikeServer(card) {
-    return fetch(`${this._baseUrl}/cards/likes/${card._id}`, {
+  deleteLikeServer(id) {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {

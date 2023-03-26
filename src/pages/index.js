@@ -23,12 +23,14 @@ import {
   imagePopup,
   confimPopup,
   popups,
+  cardContainer
 } from "../utils/constants.js";
 import { FormValidator } from "../components/FormValidator";
 import UserInfo from "../components/UserInfo";
 import Card from "../components/Card.js";
 import Popup from "../components/Popup";
 import PopupWithForm from "../components/PopupWithForm";
+import PopupWithImage from "../components/PopupWithImage";
 import Section from "../components/Section";
 
 
@@ -49,19 +51,12 @@ const profilePopupApi = new PopupWithForm(popups.profile, {
       })
   }
 })
+const popupWithImage = new PopupWithImage(popups.image);
+popupWithImage.setEventListener();
 
 const profileInfo = new UserInfo({
   profileName, profileJob, avararProfile
 })
-
-api
-  .getInitialProfile()
-  .then((res) => {
-    profileInfo.setUserInfo(res)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
 
 
 popupProfileOpenButton.addEventListener('click', () => {
@@ -69,9 +64,45 @@ popupProfileOpenButton.addEventListener('click', () => {
   profilePopupApi.setInputValues(profileInfo.getUserInfo())
 })
 
+function handleLikeCard(card, data) {
+  const like = card.idLiked() ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
+  like
+    .then((data) => {
+      card.setLike(data);
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 
 
+const newCard = new Section({
+  renderer: (item) => {
+    const createCard = new Card(item, userId, cardTemplate, {
+      handleCardClick: (name, link) => { popupWithImage.open(name, link) }
+    },
+      {
+        handleLikeClick: (card, data) => { handleLikeCard(card, data) }
+      });
+    return createCard.createCard();
+  }
+}, cardContainer)
 
+function renderProfileInfo(userInfo) {
+  profileName.textContent = userInfo.name;
+  profileJob.textContent = userInfo.about;
+  avararProfile.src = userInfo.avatar;
+}
+
+api.loadData()
+  .then(([user, cards]) => {
+    renderProfileInfo(user);
+    profileInfo.getUserInfo(user);
+    newCard.renderItems(cards)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 /*
 popupProfileOpenButton.addEventListener("click", () => {
   profilePopupApi.open();
