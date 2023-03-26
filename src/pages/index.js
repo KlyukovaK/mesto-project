@@ -135,6 +135,7 @@ function handleLikeCard(card, data) {
       console.log(err);
     });
 }
+
 /*
 function handleLikeCard(card, data) {
   const like = card.idLiked() ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
@@ -147,6 +148,22 @@ function handleLikeCard(card, data) {
     })
 }
 */
+// const deletePopup = new PopupWithForm (popups.delete, {
+//   submit: (id) => {
+
+//     api
+//       .deleteCardServer(id)
+//       .then(() => {
+//         document.querySelector(`.element[data-id="${id}"]`).remove();
+//         deletePopup.close();
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   },
+// });
+// deletePopup.setEventListeners();
+
 const newCards = new Section(
   {
     renderer: (item) => {
@@ -155,13 +172,20 @@ const newCards = new Section(
         userId,
         cardTemplate,
         {
-          handleCardClick: (name, link) => {
-            popupWithImage.open(name, link);
+          handleCardClick: (item) => {
+            console.log(item)
+            const popupWithImage = new PopupWithImage (popups.image)
+            popupWithImage.open(item.name, item.link);
           },
         },
         {
-          handleLikeClick: (card, data) => {
-            handleLikeCard(card, data);
+          handleCardDelete: (item) => {
+            api.deleteCardServer(item._id);
+          },
+        },
+        {
+          handleLikeClick: () => {
+            handleLikeCard(card, item);
           },
         }
       );
