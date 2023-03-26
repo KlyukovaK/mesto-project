@@ -31,13 +31,14 @@ import Section from "../components/Section";
 
 
 const profilePopupApi = new PopupWithForm(popups.profile, {
-  submit: (data) => {
+  submit: ({name, about}) => {
     profilePopupApi.setSubmitButton('Сохранение...');
     api
-      .changeProfile(data)
+      .changeProfile(name, about)
       .then((data) => {
-        profileInfo.setUserUnfo(data);
-        profilePopupApi.close(evt);
+        enableValidation.enableValidation();
+        profileInfo.setUserInfo(data);
+        profilePopupApi.close();
       })
       .catch((err) => {
         console.log(err)
@@ -47,14 +48,37 @@ const profilePopupApi = new PopupWithForm(popups.profile, {
       })
   }
 })
+profilePopupApi.setEventListeners();
+
+/*сохранение в popup1*/
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+  renderLoading(popupProfileAddContent, "Сохранить...");
+  api
+    .changeProfile(nameInput.value, jobInput.value)
+    .then((resalt) => {
+      profileName.textContent = resalt.name;
+      profileJob.textContent = resalt.about;
+      closePopup(profilePopup);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderLoading(popupProfileAddContent, "Сохранить");
+    });
+}
+// /*сохранение в popup1*/
+// profilePopup.addEventListener("submit", handleProfileFormSubmit);
+
 popupProfileOpenButton.addEventListener('click', () => {
   profilePopupApi.open();
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 })
-profilePopupApi.setEventListeners();
+
 //open popup2
-const cardPopup = new PopupWithForm (popups.card);
+const cardPopup = new Popup (popups.card);
 popupCardOpenButton.addEventListener("click", () => {
   cardPopup.open();
 });
@@ -88,48 +112,6 @@ api
   }
 
 
-
-// api
-//   .getInitialProfile()
-//   .then((resalt) => {
-//     profileName.textContent = resalt.name;
-//     profileJob.textContent = resalt.about;
-//     avararProfile.src = resalt.avatar;
-//     return resalt;
-//   })
-
-
-
-
-// popupProfileOpenButton.addEventListener("click", () => {
-//   profilePopupApi.open();
-//   nameInput.value = profileName.textContent;
-//   jobInput.value = profileJob.textContent;
-// }); //open popup1
-// popupCardOpenButton.addEventListener("click", () => {
-//   openPopup(cardPopup);
-// }); //oprn popup2
-
-/*сохранение в popup1*/
-// function handleProfileFormSubmit(evt) {
-//   evt.preventDefault();
-//   renderLoading(popupProfileAddContent, "Сохранить...");
-//   api
-//     .changeProfile(nameInput.value, jobInput.value)
-//     .then((resalt) => {
-//       profileName.textContent = resalt.name;
-//       profileJob.textContent = resalt.about;
-//       closePopup(profilePopup);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     })
-//     .finally(() => {
-//       renderLoading(popupProfileAddContent, "Сохранить");
-//     });
-// }
-// /*сохранение в popup1*/
-// profilePopup.addEventListener("submit", handleProfileFormSubmit);
 //добавление карточек из popup
 // function submitCardForm(evt) {
 //   evt.preventDefault();
