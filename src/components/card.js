@@ -9,7 +9,6 @@ export default class Card {
     this._handleLikeClick = handleLikeClick;
     this._handleCardDelete = handleCardDelete;
     this._handleCardClick = handleCardClick;
-    this._handleCardDelete = handleCardDelete;
     this._userId = userId;
   }
   _getElement() {
@@ -69,6 +68,7 @@ export default class Card {
   _setDeleteButton() {
     if (this._owner._id === this._userId) {
       this._deleteCard.classList.add("element__delete_active");
+
     }
   }
 

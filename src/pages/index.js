@@ -119,19 +119,20 @@ const avararPopup = new PopupWithForm(popups.avatar, {
 });
 avararPopup.setEventListeners();
 
-const deletePopup = new PopupWithForm(popups.delete, {
-  submit: (id) => {
-    api.deleteCardServer(id)
-      .then(() => {
-        document.querySelector(`.element[data-id="${id}"]`).remove();
-        deletePopup.close()
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-})
-deletePopup.setEventListeners();
+// const deletePopup = new PopupWithForm(popups.delete, {
+//   submit: (id) => {
+//     api
+//       .deleteCardServer(id)
+//       .then(() => {
+//         document.querySelector(`.element[data-id="${id}"]`).remove();
+//         deletePopup.close();
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   },
+// });
+// deletePopup.setEventListeners();
 
 document.querySelector(".profile__change").addEventListener("click", () => {
   avararPopup.open();
@@ -150,33 +151,6 @@ function handleLikeCard(card, data) {
     });
 }
 
-/*
-function handleLikeCard(card, data) {
-  const like = card.idLiked() ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
-  like
-    .then((data) => {
-      card.setLike(data);
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
-*/
-// const deletePopup = new PopupWithForm (popups.delete, {
-//   submit: (id) => {
-
-//     api
-//       .deleteCardServer(id)
-//       .then(() => {
-//         document.querySelector(`.element[data-id="${id}"]`).remove();
-//         deletePopup.close();
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   },
-// });
-// deletePopup.setEventListeners();
 
 const newCards = new Section(
   {
@@ -187,18 +161,15 @@ const newCards = new Section(
         cardTemplate,
         {
           handleCardClick: (item) => {
-            console.log(item)
-            const popupWithImage = new PopupWithImage (popups.image)
+            const popupWithImage = new PopupWithImage(popups.image);
             popupWithImage.open(item.name, item.link);
+            popupWithImage.setEventListeners();
           },
         },
         {
-          handleCardDelete: (item) => {
-            api.deleteCardServer(item._id);
+          handleCardDelete: () => {
+            api.deleteCardServer(card._id).then(() => card.deleteCard());
           },
-        },
-        {
-          handleCardDelete: (id) => { deletePopup.open(id) }
         },
         {
           handleLikeClick: () => handleLikeCard(card, item)
@@ -227,5 +198,3 @@ api
   .catch((err) => {
     console.log(err);
   });
-
-
