@@ -57,13 +57,6 @@ export default class Card {
       this._cardLike.classList.remove("element__like_active");
     }
   }
-  /*
-    _toggleLikeContainer(data) {
-      if (data.likes.length === 1) {
-        this._countLike.classList.add()
-      }
-    }
-  */
 
   _setDeleteButton() {
     if (this._owner._id === this._userId) {
