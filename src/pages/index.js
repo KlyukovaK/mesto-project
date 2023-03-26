@@ -119,20 +119,6 @@ const avararPopup = new PopupWithForm(popups.avatar, {
 });
 avararPopup.setEventListeners();
 
-// const deletePopup = new PopupWithForm(popups.delete, {
-//   submit: (id) => {
-//     api
-//       .deleteCardServer(id)
-//       .then(() => {
-//         document.querySelector(`.element[data-id="${id}"]`).remove();
-//         deletePopup.close();
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   },
-// });
-// deletePopup.setEventListeners();
 
 document.querySelector(".profile__change").addEventListener("click", () => {
   avararPopup.open();
