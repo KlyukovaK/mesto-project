@@ -27,15 +27,12 @@ export default class Card {
     this._deleteCard = this._card.querySelector(".element__delete");
 
 
-
     this._cardText.textContent = this._name;
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._countLike.textContent = this._likes.length;
 
     this.setEventListeners();
-    this.setDeleteButton();
-
     this.setDeleteButton();
     return this._card;
   }
@@ -69,9 +66,9 @@ export default class Card {
     }
   */
 
-  _setDeleteButton() {
-    if (this._owner._id !== this._userId) {
-      this._deleteCard.remove();
+  setDeleteButton() {
+    if (this._owner._id === this._userId) {
+      this._deleteCard.classList.add("element__delete_active");
     }
   }
 
