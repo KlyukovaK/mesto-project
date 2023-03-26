@@ -138,7 +138,7 @@ document.querySelector(".profile__change").addEventListener("click", () => {
 });
 
 function handleLikeCard(card, data) {
-  const like = card.idLiked()
+  const like = card.isLiked()
     ? api.deleteLikeServer(data._id)
     : api.addLikeServer(data._id);
   like
@@ -177,10 +177,8 @@ const newCards = new Section(
           handleCardDelete: (id) => { deletePopup.open(id) }
         },
         {
-          handleLikeClick: (card, data) => {
-            handleLikeCard(card, data);
-          },
-        }
+          handleLikeClick: () => handleLikeCard(card, item)
+        },
       );
       return card.createCard();
     },
