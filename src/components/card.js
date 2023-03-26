@@ -1,12 +1,13 @@
 export default class Card {
-  constructor(item, userId, selector, { handleCardClick }, { handleCardDelete }, { handleLikeClick }) {
+  constructor({ name, link, _id, likes, owner }, userId, selector, { handleCardClick }, { handleCardDelete }, { handleLikeClick }) {
     this._selector = selector;
-    this._name = item.name;
-    this._link = item.link;
-    this._id = item._id;
-    this._likes = item.likes;
-    this._owner = item.owner;
+    this._name = name;
+    this._link = link;
+    this._id = _id;
+    this._likes = likes;
+    this._owner = owner;
     this._handleLikeClick = handleLikeClick;
+    this._handleCardDelete = handleCardDelete;
     this._handleCardClick = handleCardClick;
     this._handleCardDelete = handleCardDelete;
     this._userId = userId;
@@ -47,10 +48,9 @@ export default class Card {
   }
 
   setLike(data) {
-    this._isLiked =
-      data.filter((item) => {
-        return item._id == this._userId;
-      }).length > 0;
+    this._isLiked = data.likes.filter((item) => {
+      return item._id == this._userId;
+    }).length > 0;
     this._countLike.textContent = data.likes.length;
     if (this._isLiked) {
       this._cardLike.classList.add("element__like_active");
@@ -74,7 +74,7 @@ export default class Card {
 
   setEventListeners() {
     this._cardLike.addEventListener("click", () => {
-      this._handlelikeClick();
+      this._handleLikeClick();
     });
 
     this._deleteCard.addEventListener("click", () => {
