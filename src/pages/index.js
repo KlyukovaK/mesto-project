@@ -30,6 +30,7 @@ import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
+import PopupToDelete from "../components/PopupWithDelete";
 
 let userId;
 
@@ -119,11 +120,12 @@ const avararPopup = new PopupWithForm(popups.avatar, {
 });
 avararPopup.setEventListeners();
 
-const deletePopup = new PopupWithForm(popups.delete, {
+
+const deletePopup = new PopupToDelete(popups.delete, {
   submit: (id) => {
     api.deleteCardServer(id)
-      .then(() => {
-        document.querySelector(`.element[data-id="${id}"]`).remove();
+      .then((res) => {
+        res.deleteCard();
         deletePopup.close()
       })
       .catch((err) => {
@@ -149,18 +151,8 @@ function handleLikeCard(card, data) {
       console.log(err);
     });
 }
-/*
-function handleLikeCard(card, data) {
-  const like = card.idLiked() ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
-  like
-    .then((data) => {
-      card.setLike(data);
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
-*/
+
+
 const newCards = new Section(
   {
     renderer: (item) => {
@@ -169,8 +161,9 @@ const newCards = new Section(
         userId,
         cardTemplate,
         {
-          handleCardClick: (name, link) => {
-            popupWithImage.open(name, link);
+          handleCardClick: (item) => {
+            const popupWithImage = new PopupWithImage(popups.image);
+            popupWithImage.open(item.name, item.link);
           },
         },
         {
