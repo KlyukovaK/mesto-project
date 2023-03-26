@@ -140,6 +140,20 @@ const avararPopup = new PopupWithForm(popups.avatar, {
 });
 avararPopup.setEventListeners();
 
+const deletePopup = new PopupWithForm(popups.delete, {
+  submit: (id) => {
+    api.deleteCardServer(id)
+      .then(() => {
+        document.querySelector(`.element[data-id="${id}"]`).remove();
+        deletePopup.close()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+})
+deletePopup.setEventListeners();
+
 document.querySelector(".profile__change").addEventListener("click", () => {
   avararPopup.open();
 });
@@ -181,6 +195,9 @@ const newCards = new Section(
           },
         },
         {
+          handleCardDelete: (id) => { deletePopup.open(id) }
+        },
+        {
           handleLikeClick: (card, data) => {
             handleLikeCard(card, data);
           },
@@ -201,6 +218,7 @@ function renderProfileInfo(userInfo) {
 api
   .loadData()
   .then(([user, cards]) => {
+    userId = user._id
     renderProfileInfo(user);
     profileInfo.getUserInfo(user);
     newCards.renderItems(cards);
@@ -208,3 +226,5 @@ api
   .catch((err) => {
     console.log(err);
   });
+
+
