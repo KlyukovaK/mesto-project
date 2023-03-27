@@ -1,5 +1,5 @@
 import "./index.css";
-import { api } from "../components/Api.js";
+import { api, renderLoading } from "../components/Api.js";
 import {
   profilePopup,
   nameInput,
@@ -117,19 +117,15 @@ const avararPopup = new PopupWithForm(popups.avatar, {
   },
 });
 avararPopup.setEventListeners();
-
-
 document.querySelector(".profile__change").addEventListener("click", () => {
   avararPopup.open();
 });
 
 function handleLikeCard(card, data) {
-  const like = card.isLiked()
-    ? api.deleteLikeServer(data._id)
-    : api.addLikeServer(data._id);
+  const like = card.isLiked() ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
   like
     .then((data) => {
-      card.setLike(data);
+      card.getLike(data);
     })
     .catch((err) => {
       console.log(err);
@@ -153,7 +149,9 @@ const newCards = new Section(
         },
         {
           handleCardDelete: () => {
-            api.deleteCardServer(card._id).then(() => card.deleteCard());
+            api
+              .deleteCardServer(card._id)
+              .then(() => card.deleteCard());
           },
         },
         {
