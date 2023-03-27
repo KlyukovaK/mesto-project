@@ -10,4 +10,10 @@
 * Методология БЭМ
 * JavaScript
 
+### Также данная работа переписана в стиле ООП вместе с напарником Максом Бобырь: https://github.com/KlyukovaK/mesto-project/pulls
+Контакты напарника
+*Почта: max89.bobyr@yandex.ru
+*GitHub: https://github.com/Falor89
+
+
 ## Ссылка на проект:  https://klyukovak.github.io/mesto-project

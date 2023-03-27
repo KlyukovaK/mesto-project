@@ -16,10 +16,12 @@
 }
 
 .popup__item:focus {
-  color: red;
+  color: rgb(13, 104, 43);
+  border: none;
 }
 .popup__item:invalid {
   margin-bottom: 0px;
+  color: red;
   border-bottom: 1px solid #FF0000;
 }
 
