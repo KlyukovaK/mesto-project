@@ -123,7 +123,7 @@ function handleLikeCard(card) {
         card.setCount(data.likes)
       })
       .catch((err) => {
-        `Ошибка в лайке:${err}`
+        console.log(err);
       })
   }
   else {
@@ -134,7 +134,7 @@ function handleLikeCard(card) {
         card.setCount(data.likes)
       })
       .catch((err) => {
-        `Ошибка в дизлайке: ${err}`
+        console.log(err);
       })
   }
 }
