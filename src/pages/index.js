@@ -1,5 +1,5 @@
 import "./index.css";
-import { api, renderLoading } from "../components/Api.js";
+import { api } from "../components/Api.js";
 import {
   profilePopup,
   nameInput,
@@ -118,8 +118,6 @@ const avararPopup = new PopupWithForm(popups.avatar, {
   },
 });
 avararPopup.setEventListeners();
-
-
 document.querySelector(".profile__change").addEventListener("click", () => {
   avararPopup.open();
 });
@@ -164,7 +162,9 @@ const newCards = new Section(
         },
         {
           handleCardDelete: () => {
-            api.deleteCardServer(card._id).then(() => card.deleteCard());
+            api
+              .deleteCardServer(card._id)
+              .then(() => card.deleteCard());
           },
         },
         {
