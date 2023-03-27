@@ -41,6 +41,7 @@ export default class Card {
     this.setEventListeners();
     this._setDeleteButton();
     this._chekLike();
+
     return this._card;
   }
 
@@ -61,7 +62,7 @@ export default class Card {
     });
   }
 
-  setLike(data) {
+  getLike(data) {
     this._isLiked =
       data.likes.filter((item) => {
         return item._id == this._userId;
@@ -88,8 +89,9 @@ export default class Card {
     this._deleteCard.addEventListener("click", () => {
       this._handleCardDelete();
     });
+
     this._cardImage.addEventListener("click", () => {
-      this._handleCardClick({ name: this._name, link: this._link });
+      this._handleCardClick({name: this._name, link: this._link });
     });
   }
 }
