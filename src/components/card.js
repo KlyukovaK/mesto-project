@@ -41,7 +41,6 @@ export default class Card {
     this.setEventListeners();
     this._setDeleteButton();
     this._chekLike();
-
     return this._card;
   }
 
@@ -50,8 +49,17 @@ export default class Card {
     this._card = null;
   }
 
+
+  setCount(data) {
+    this._likes = data;
+    this._countLike.textContent = this._likes.length;
+  }
+
   isLiked() {
-    return this._isLiked;
+    const isLiked = this._likes.map((userData) => userData._id)
+    if (isLiked.includes(this._userId)) {
+      return isLiked
+    }
   }
 
   _chekLike() {
@@ -62,18 +70,14 @@ export default class Card {
     });
   }
 
-  getLike(data) {
-    this._isLiked =
-      data.likes.filter((item) => {
-        return item._id === this._userId;
-      }).length > 0;
-    this._countLike.textContent = data.likes.length;
-    if (this._isLiked) {
-      this._cardLike.classList.add("element__like_active");
-    } else {
-      this._cardLike.classList.remove("element__like_active");
-    }
+  addLike() {
+    this._cardLike.classList.add("element__like_active")
   }
+
+  removeLike() {
+    this._cardLike.classList.remove("element__like_active")
+  }
+
 
   _setDeleteButton() {
     if (this._owner._id === this._userId) {

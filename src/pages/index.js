@@ -114,18 +114,30 @@ document.querySelector(".profile__change").addEventListener("click", () => {
   avararPopup.open();
 });
 
-function handleLikeCard(card, data) {
-  const like = card.isLiked(data) ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
-  like
-    .then((data) => {
-      card.getLike(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+function handleLikeCard(card) {
+  if (card.isLiked()) {
+    api
+      .deleteLikeServer(card._id)
+      .then((data) => {
+        card.removeLike();
+        card.setCount(data.likes)
+      })
+      .catch((err) => {
+        `Ошибка в лайке:${err}`
+      })
+  }
+  else {
+    api
+      .addLikeServer(card._id)
+      .then((data) => {
+        card.addLike();
+        card.setCount(data.likes)
+      })
+      .catch((err) => {
+        `Ошибка в дизлайке: ${err}`
+      })
+  }
 }
-
-
 const newCards = new Section(
   {
     renderer: (item) => {
@@ -148,7 +160,7 @@ const newCards = new Section(
           },
         },
         {
-          handleLikeClick: () => handleLikeCard(card, item)
+          handleLikeClick: () => handleLikeCard(card)
         },
       );
       return card.createCard();
