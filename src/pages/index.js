@@ -1,5 +1,5 @@
 import "./index.css";
-import { api, renderLoading } from "../components/Api.js";
+import { api } from "../components/Api.js";
 import {
   profilePopup,
   nameInput,
@@ -77,7 +77,6 @@ const cardPopup = new PopupWithForm(popups.card, {
     api
       .addCard(cardPopupText.value, cardPopupImage.value)
       .then((data) => {
-        const authorId = data.owner._id;
         newCards.addItem(data);
         popupCardAddContent.classList.add("popup__button_inactive");
         popupCardAddContent.setAttribute("disabled", "disabled");
