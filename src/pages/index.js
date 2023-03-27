@@ -1,32 +1,25 @@
 import "./index.css";
-import { api, renderLoading } from "../components/Api.js";
+import { api } from "../components/Api.js";
 import {
-  profilePopup,
   nameInput,
   jobInput,
   avararProfile,
   cardPopupText,
   cardPopupImage,
-  elementContainer,
   profileName,
   profileJob,
-  popupProfileAddContent,
   popupCardAddContent,
   popupProfileOpenButton,
   popupCardOpenButton,
-  popupCloseButtons,
   avatarInput,
   popupAvatareAddContent,
   cardTemplate,
-  imagePopup,
-  confimPopup,
   popups,
   cardContainer,
 } from "../utils/constants.js";
 import { FormValidator } from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
 import Card from "../components/Card.js";
-import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
@@ -122,7 +115,7 @@ document.querySelector(".profile__change").addEventListener("click", () => {
 });
 
 function handleLikeCard(card, data) {
-  const like = card.isLiked() ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
+  const like = card.isLiked(data) ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
   like
     .then((data) => {
       card.getLike(data);

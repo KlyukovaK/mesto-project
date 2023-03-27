@@ -65,7 +65,7 @@ export default class Card {
   getLike(data) {
     this._isLiked =
       data.likes.filter((item) => {
-        return item._id == this._userId;
+        return item._id === this._userId;
       }).length > 0;
     this._countLike.textContent = data.likes.length;
     if (this._isLiked) {
@@ -91,7 +91,7 @@ export default class Card {
     });
 
     this._cardImage.addEventListener("click", () => {
-      this._handleCardClick({name: this._name, link: this._link });
+      this._handleCardClick({ name: this._name, link: this._link });
     });
   }
 }
