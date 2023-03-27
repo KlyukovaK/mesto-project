@@ -30,7 +30,6 @@ import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
-import PopupToDelete from "../components/PopupWithDelete";
 
 let userId;
 
@@ -125,30 +124,30 @@ document.querySelector(".profile__change").addEventListener("click", () => {
   avararPopup.open();
 });
 
-function handleLikeCard(card, data) {
-  const like = card.isLiked()
-    ? api.deleteLikeServer(data._id)
-    : api.addLikeServer(data._id);
-  like
-    .then((data) => {
-      card.setLike(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+function handleLikeCard(card) {
+  if (card.isLiked()) {
+    api
+      .deleteLikeServer(card._id)
+      .then((data) => {
+        card.removeLike();
+        card.setCount(data.likes)
+      })
+      .catch((err) => {
+        `Ошибка в лайке:${err}`
+      })
+  }
+  else {
+    api
+      .addLikeServer(card._id)
+      .then((data) => {
+        card.addLike();
+        card.setCount(data.likes)
+      })
+      .catch((err) => {
+        `Ошибка в дизлайке: ${err}`
+      })
+  }
 }
-/*
-function handleLikeCard(card, data) {
-  const like = card.idLiked() ? api.deleteLikeServer(data._id) : api.addLikeServer(data._id);
-  like
-    .then((data) => {
-      card.setLike(data);
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-}
-*/
 const newCards = new Section(
   {
     renderer: (item) => {
@@ -169,7 +168,7 @@ const newCards = new Section(
           },
         },
         {
-          handleLikeClick: () => handleLikeCard(card, item)
+          handleLikeClick: () => handleLikeCard(card)
         },
       );
       return card.createCard();
