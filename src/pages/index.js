@@ -27,23 +27,26 @@ import Section from "../components/Section.js";
 let userId;
 
 //валидация форм
-const enableValidation = new FormValidator({
-  formSelector: ".popup__input-container",
-  inputSelector: ".popup__item",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_inactive",
-  inputErrorClass: "popup__item_type_error",
-  errorClass: "popup__item-error_active",
-});
-enableValidation.enableValidation();
+const enableValidationPopupProfile = new FormValidator(
+  {
+    formSelector: ".popup__input-container",
+    inputSelector: ".popup__item",
+    submitButtonSelector: ".popup__button",
+    inactiveButtonClass: "popup__button_inactive",
+    inputErrorClass: "popup__item_type_error",
+    errorClass: "popup__item-error_active",
+  },
+  popups.profile
+);
+enableValidationPopupProfile.enableValidation();
 
-const profileInfo = new UserInfo(profileName, profileJob, avararProfile);
+const profileInfo = new UserInfo (profileName, profileJob, avararProfile);
 
 const profilePopupApi = new PopupWithForm(popups.profile, {
-  submit: () => {
-    profilePopupApi.setSubmitButton("Сохранение...");
+  submit: ({ name, profession }) => {
+    profilePopupApi.renderLoading("Сохранение...");
     api
-      .changeProfile(nameInput.value, jobInput.value)
+      .changeProfile(name, profession)
       .then((data) => {
         profileInfo.setUserInfo(data);
         profilePopupApi.close();
@@ -52,7 +55,7 @@ const profilePopupApi = new PopupWithForm(popups.profile, {
         console.log(err);
       })
       .finally(() => {
-        profilePopupApi.setSubmitButton("Сохранить");
+        profilePopupApi.renderLoading("Сохранить");
       });
   },
 });
@@ -60,26 +63,41 @@ profilePopupApi.setEventListeners();
 
 popupProfileOpenButton.addEventListener("click", () => {
   profilePopupApi.open();
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+  const infoObject = profileInfo.getUserInfo();
+  nameInput.value = infoObject.name;
+  jobInput.value = infoObject.about;
 });
 // open popup2
+
+//валидация форм
+const enableValidationPopupCard = new FormValidator(
+  {
+    formSelector: ".popup__input-container",
+    inputSelector: ".popup__item",
+    submitButtonSelector: ".popup__button",
+    inactiveButtonClass: "popup__button_inactive",
+    inputErrorClass: "popup__item_type_error",
+    errorClass: "popup__item-error_active",
+  },
+  popups.card
+);
+enableValidationPopupCard.enableValidation();
+
 const cardPopup = new PopupWithForm(popups.card, {
-  submit: () => {
-    cardPopup.setSubmitButton("Создать...");
+  submit: ({ nameplace, images }) => {
+    cardPopup.renderLoading("Создать...");
     api
-      .addCard(cardPopupText.value, cardPopupImage.value)
+      .addCard(nameplace, images)
       .then((data) => {
         newCards.addItem(data);
-        popupCardAddContent.classList.add("popup__button_inactive");
-        popupCardAddContent.setAttribute("disabled", "disabled");
+        enableValidationPopupCard.deactivateButton();
         cardPopup.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        cardPopup.setSubmitButton("Сохранить");
+        cardPopup.renderLoading("Сохранить");
       });
   },
 });
@@ -90,22 +108,35 @@ popupCardOpenButton.addEventListener("click", () => {
 });
 
 //open popup avatar
+//валидация форм
+const enableValidationPopupAvatar = new FormValidator(
+  {
+    formSelector: ".popup__input-container",
+    inputSelector: ".popup__item",
+    submitButtonSelector: ".popup__button",
+    inactiveButtonClass: "popup__button_inactive",
+    inputErrorClass: "popup__item_type_error",
+    errorClass: "popup__item-error_active",
+  },
+  popups.avatar
+);
+enableValidationPopupAvatar.enableValidation();
+
 const avararPopup = new PopupWithForm(popups.avatar, {
-  submit: () => {
-    avararPopup.setSubmitButton("Сохранить...");
+  submit: ({ avatar_imag }) => {
+    avararPopup.renderLoading("Сохранить...");
     api
-      .changeAvatar(avatarInput.value)
+      .changeAvatar(avatar_imag)
       .then((data) => {
         profileInfo.setUserInfo(data);
-        popupAvatareAddContent.classList.add("popup__button_inactive");
-        popupAvatareAddContent.setAttribute("disabled", "disabled");
+        enableValidationPopupAvatar.deactivateButton();
         avararPopup.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        avararPopup.setSubmitButton("Сохранить");
+        avararPopup.renderLoading("Сохранить");
       });
   },
 });
@@ -120,22 +151,21 @@ function handleLikeCard(card) {
       .deleteLikeServer(card._id)
       .then((data) => {
         card.removeLike();
-        card.setCount(data.likes)
+        card.setCount(data.likes);
       })
       .catch((err) => {
         console.log(err);
-      })
-  }
-  else {
+      });
+  } else {
     api
       .addLikeServer(card._id)
       .then((data) => {
         card.addLike();
-        card.setCount(data.likes)
+        card.setCount(data.likes);
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   }
 }
 const newCards = new Section(
@@ -154,14 +184,12 @@ const newCards = new Section(
         },
         {
           handleCardDelete: () => {
-            api
-              .deleteCardServer(card._id)
-              .then(() => card.deleteCard());
+            api.deleteCardServer(card._id).then(() => card.deleteCard());
           },
         },
         {
-          handleLikeClick: () => handleLikeCard(card)
-        },
+          handleLikeClick: () => handleLikeCard(card),
+        }
       );
       return card.createCard();
     },
@@ -169,18 +197,16 @@ const newCards = new Section(
   cardContainer
 );
 
-function renderProfileInfo(userInfo) {
-  profileName.textContent = userInfo.name;
-  profileJob.textContent = userInfo.about;
-  avararProfile.src = userInfo.avatar;
-}
+
 
 api
   .loadData()
   .then(([user, cards]) => {
     userId = user._id;
-    renderProfileInfo(user);
     profileInfo.getUserInfo(user);
+    profileName.textContent = user.name;
+    profileJob.textContent = user.about;
+    avararProfile.src = user.avatar;
     newCards.renderItems(cards);
   })
   .catch((err) => {

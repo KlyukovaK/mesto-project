@@ -26,26 +26,26 @@ export class Api {
     });
   }
   //изменение профиля
-  changeProfile(name, about) {
+  changeProfile(name, profession) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
-        about: about,
+        about: profession,
       }),
     }).then((res) => {
       return this._checkPromise(res);
     });
   }
   //добавление карточки
-  addCard(name, link) {
+  addCard(nameplace, images) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        link: link,
+        name: nameplace,
+        link: images,
       }),
     }).then((res) => {
       return this._checkPromise(res);
@@ -79,12 +79,12 @@ export class Api {
     });
   }
   //добавление avatar
-  changeAvatar(avatar) {
+  changeAvatar(avatar_imag) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatar,
+        avatar: avatar_imag,
       }),
     }).then((res) => {
       return this._checkPromise(res);
@@ -103,7 +103,3 @@ export const api = new Api({
   },
 });
 
-//загрузка на кнопке
-export function renderLoading(button, text) {
-  button.textContent = text;
-}

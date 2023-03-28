@@ -1,11 +1,12 @@
 export class FormValidator {
-  constructor(config) {
+  constructor(config, selector) {
     this._formSelector = config.formSelector;
     this._inputSelector = config.inputSelector;
     this._submitButtonSelector = config.submitButtonSelector;
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
+    this._selector = document.querySelector(selector);
   }
   //функция добавления ошибки
   _showInputError(formElement, inputElement, errorMessage) {
@@ -69,12 +70,16 @@ export class FormValidator {
   }
   //функция перебора всех форм в документе
   enableValidation() {
-    const formList = Array.from(document.querySelectorAll(this._formSelector));
-    formList.forEach((formElement) => {
-      formElement.addEventListener("submit", (evt) => {
-        evt.preventDefault();
-      });
-      this._setEventListeners(formElement);
+    const formElement = this._selector.querySelector(this._formSelector);
+    formElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
     });
+    this._setEventListeners(formElement);
+  }
+
+  deactivateButton(){
+    const activeButton = this._selector.querySelector(this._submitButtonSelector);
+    activeButton.classList.add(this._inactiveButtonClass);
+    activeButton.setAttribute("disabled", "disabled");
   }
 }
