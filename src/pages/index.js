@@ -61,6 +61,7 @@ const profilePopupApi = new PopupWithForm(popups.profile, {
 });
 profilePopupApi.setEventListeners();
 
+
 popupProfileOpenButton.addEventListener("click", () => {
   profilePopupApi.open();
   const infoObject = profileInfo.getUserInfo();
@@ -90,7 +91,6 @@ const cardPopup = new PopupWithForm(popups.card, {
       .addCard(nameplace, images)
       .then((data) => {
         newCards.addItem(data);
-        enableValidationPopupCard.deactivateButton();
         cardPopup.close();
       })
       .catch((err) => {
@@ -105,6 +105,7 @@ cardPopup.setEventListeners();
 
 popupCardOpenButton.addEventListener("click", () => {
   cardPopup.open();
+  enableValidationPopupCard.resetValidation();
 });
 
 //open popup avatar
@@ -129,7 +130,6 @@ const avararPopup = new PopupWithForm(popups.avatar, {
       .changeAvatar(avatar_imag)
       .then((data) => {
         profileInfo.setUserInfo(data);
-        enableValidationPopupAvatar.deactivateButton();
         avararPopup.close();
       })
       .catch((err) => {
@@ -143,6 +143,7 @@ const avararPopup = new PopupWithForm(popups.avatar, {
 avararPopup.setEventListeners();
 document.querySelector(".profile__change").addEventListener("click", () => {
   avararPopup.open();
+  enableValidationPopupAvatar.resetValidation();
 });
 
 function handleLikeCard(card) {
@@ -203,10 +204,7 @@ api
   .loadData()
   .then(([user, cards]) => {
     userId = user._id;
-    profileInfo.getUserInfo(user);
-    profileName.textContent = user.name;
-    profileJob.textContent = user.about;
-    avararProfile.src = user.avatar;
+    profileInfo.setUserInfo(user);
     newCards.renderItems(cards);
   })
   .catch((err) => {

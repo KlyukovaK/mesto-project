@@ -6,80 +6,95 @@ export class FormValidator {
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
+
     this._selector = document.querySelector(selector);
+    this._inputList = Array.from(
+      this._selector.querySelectorAll(this._inputSelector)
+    );
+    this._iputElement = this._selector.querySelector(this._inputSelector);
+    this._buttonElement = this._selector.querySelector(
+      this._submitButtonSelector
+    );
+    this._formElement = this._selector.querySelector(this._formSelector);
   }
   //функция добавления ошибки
-  _showInputError(formElement, inputElement, errorMessage) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._selector.querySelector(
+      `.${inputElement.id}-error`
+    );
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
   }
   //функция удаления ошибки
-  _hidleInputError(formElement, inputElement) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  _hidleInputError(inputElement) {
+    const errorElement = this._selector.querySelector(
+      `.${inputElement.id}-error`
+    );
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = "";
   }
   // функция определения есть ошибка или нет
-  _checkInputValidity(formElement, inputElement) {
-    if (inputElement.validity.patternMismatch) {
-      inputElement.setCustomValidity(inputElement.dataset.errorMessage);
-    } else {
-      inputElement.setCustomValidity("");
-    }
-    if (!inputElement.validity.valid) {
-      this._showInputError(
-        formElement,
-        inputElement,
-        inputElement.validationMessage
+  _checkInputValidity() {
+    if (this._iputElement.validity.patternMismatch) {
+      this._iputElement.setCustomValidity(
+        this._iputElement.dataset.errorMessage
       );
     } else {
-      this._hidleInputError(formElement, inputElement);
+      this._iputElement.setCustomValidity("");
+    }
+    if (!this._iputElement.validity.valid) {
+      this._showInputError(
+        this._iputElement,
+        this._iputElement.validationMessage
+      );
+    } else {
+      this._hidleInputError(this._iputElement);
     }
   }
-  _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
   //функция для активации кнопки
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.disabled = true;
-      buttonElement.classList.add(this._inactiveButtonClass);
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._buttonElement.disabled = true;
+      this._buttonElement.classList.add(this._inactiveButtonClass);
     } else {
-      buttonElement.disabled = false;
-      buttonElement.classList.remove(this._inactiveButtonClass);
+      this._buttonElement.disabled = false;
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
     }
   }
   //функция перебора всех input в форме и их проверки
-  _setEventListeners(formElement) {
-    const inputList = Array.from(
-      formElement.querySelectorAll(this._inputSelector)
-    );
-    const buttonElement = formElement.querySelector(this._submitButtonSelector);
-    this._toggleButtonState(inputList, buttonElement);
-    inputList.forEach((inputElement) => {
+  _setEventListeners() {
+    this._toggleButtonState(this._inputList, this._buttonElement);
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
-        this._checkInputValidity(formElement, inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._checkInputValidity(this._selector, inputElement);
+        this._toggleButtonState(this._inputList, this._buttonElement);
       });
     });
   }
   //функция перебора всех форм в документе
   enableValidation() {
-    const formElement = this._selector.querySelector(this._formSelector);
-    formElement.addEventListener("submit", (evt) => {
+    this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    this._setEventListeners(formElement);
+    this._setEventListeners(this._formElement);
   }
 
-  deactivateButton(){
-    const activeButton = this._selector.querySelector(this._submitButtonSelector);
-    activeButton.classList.add(this._inactiveButtonClass);
-    activeButton.setAttribute("disabled", "disabled");
+  _deactivateButton() {
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+    this._buttonElement.setAttribute("disabled", "disabled");
+  }
+
+  resetValidation() {
+      this._deactivateButton();
+    this._inputList.forEach((inputElement) => {
+      this._hidleInputError(inputElement);
+    });
   }
 }
